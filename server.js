@@ -35,6 +35,14 @@ app.get('/api/v1/topicTags/:id', (request, response) => {
   .catch(error => response.status(500).json({ error }));
 });
 
+app.get('/api/v1/discussions', (request, response) => {
+  database('discussions').select()
+  .then((discussions) => {
+    return response.status(200).json(discussions);
+  })
+  .catch(error => response.status(500).json({ error }));
+});
+
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on ${app.get('port')}.`);
 });
