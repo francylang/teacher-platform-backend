@@ -43,6 +43,16 @@ app.get('/api/v1/discussions', (request, response) => {
   .catch(error => response.status(500).json({ error }));
 });
 
+app.get('/api/v1/discussions/:id', (request, response) => {
+  const { id } = request.params;
+
+  database('discussions').where('id', id).select()
+  .then((discussion) => {
+    return response.status(200).json(discussion);
+  })
+  .catch(error => response.status(500).json({ error }));
+});
+
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on ${app.get('port')}.`);
 });
