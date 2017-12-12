@@ -20,7 +20,7 @@ const createDiscussion = (knex, comments, discussion) => {
 const createTopicTag = (knex, topic) => {
   return knex('topicTags').insert({
     id: topic.id,
-    tagTitle: topic.tagTiitle,
+    tagTitle: topic.tagTitle,
   }, 'id')
   .then((topicTagId) => {
     const discussionPromises = [];
