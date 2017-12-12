@@ -1,5 +1,3 @@
-// import discussionsData from '/complex-discussions.js';
-
 const createComment = (knex, comment) => {
   return knex('comments').insert(comment)
 };
