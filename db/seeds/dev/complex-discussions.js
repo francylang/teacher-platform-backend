@@ -1,24 +1,20 @@
-const createComment = (knex, comment) => {
-  return knex('comments').insert(comment)
-};
+const createComment = (knex, comment) => knex('comments').insert(comment);
 
 const createDiscussion = (knex, comments, discussion) => {
   return knex('discussions').insert(discussion, 'id')
-    .then(uniqueDiscussionId => {
-      let commentPromises = [];
+    .then((uniqueDiscussionId) => {
+      const commentPromises = [];
 
-      comments.forEach(comment => {
-        commentPromises.push(
-          createComment(knex, {
+      comments.forEach((comment) => {
+        commentPromises.push(createComment(knex, {
           id: comment.id,
           body: comment.body,
           discussionId: uniqueDiscussionId[0],
-        })
-      )
-    })
+        }));
+    });
     return Promise.all(commentPromises);
     })
-    .catch(error => console.log(`Error in discussion: ${error}`))
+    .catch(error => console.log(`Error in discussion: ${error}`));
 };
 
 const createTopicTag = (knex, topic) => {
@@ -26,33 +22,31 @@ const createTopicTag = (knex, topic) => {
     id: topic.id,
     tagTitle: topic.tagTiitle,
   }, 'id')
-  .then(topicTagId => {
-    let discussionPromises = [];
+  .then((topicTagId) => {
+    const discussionPromises = [];
 
-    topic.discussions.forEach(discussion => {
-      discussionPromises.push(
-        createDiscussion(knex, discussion.comments, {
+    topic.discussions.forEach((discussion) => {
+      discussionPromises.push(createDiscussion(knex, discussion.comments, {
           id: discussion.id,
           title: discussion.title,
           body: discussion.body,
           tagId: topicTagId[0],
-        })
-      )
-    })
+        }));
+    });
     return Promise.all(discussionPromises);
   })
-  .catch(error => console.log(`Error in topic: ${error}`))
-}
+  .catch(error => console.log(`Error in topic: ${error}`));
+};
 
 exports.seed = (knex, Promise) => {
   return knex('comments').del()
     .then(() => knex('discussions').del())
     .then(() => knex('topicTags').del())
     .then(() => {
-      let topicTagPromises = [];
+      const topicTagPromises = [];
 
-      discussionsData.forEach(topic => {
-        topicTagPromises.push(createTopicTag(knex, topic))
+      discussionsData.forEach((topic) => {
+        topicTagPromises.push(createTopicTag(knex, topic));
       });
       return Promise.all(topicTagPromises);
     })
@@ -587,4 +581,4 @@ const discussionsData = [
       },
     ]
   },
-]
+];
