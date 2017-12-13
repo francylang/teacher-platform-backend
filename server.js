@@ -13,6 +13,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set('port', process.env.PORT || 3000);
 app.locals.title = 'Yo Teach';
 
+// const checkAuth = () => {
+//   console.log('Auth');
+// };
+
 app.get('/', (request, response) => {
   response.send('Oh, hai!');
 });
@@ -59,6 +63,40 @@ app.post('/api/v1/discussions', (request, response) => {
     .catch(error => response.status(500).json({ error }));
 });
 
+
+app.get('/api/v1/discussions/:id', (request, response) => {
+  const { id } = request.params;
+
+  database('discussions').where('id', id).select()
+    .then((discussion) => {
+      return response.status(200).json(discussion);
+    })
+    .catch(error => response.status(500).json({ error }));
+});
+
+app.patch('/api/v1/discussions/:id', (request, response) => {
+  const { id } = request.params;
+  const bodyUpdate = request.body;
+
+  if (!bodyUpdate.body) {
+    return response.status(422).json({
+      error: `You must send only an object literal with the key 'body' and a string value.`,
+    });
+  }
+
+  database('discussions').where('id', id)
+    .update(bodyUpdate, "*")
+    .then((update) => {
+      if (!update.length) {
+        return response.sendStatus(404);
+      }
+      return response.sendStatus(204);
+    })
+    .catch((error) => {
+      return response.status(500).json({ error });
+    });
+});
+
 app.delete('/api/v1/discussions/:id', (request, response) => {
   const { id } = request.params;
 
@@ -72,12 +110,38 @@ app.delete('/api/v1/discussions/:id', (request, response) => {
     .catch(error => response.status(500).json({ error }));
 });
 
-app.get('/api/v1/discussions/:id', (request, response) => {
+app.patch('/api/v1/comments/:id', (request, response) => {
+  const { id } = request.params;
+  const commentUpdate = request.body;
+
+  if (!commentUpdate.body) {
+    return response.status(422).json({
+      error: `You must send only an object literal with the key 'body' and a string value.`,
+    });
+  }
+
+  database('comments').where('id', id)
+    .update(commentUpdate, "*")
+    .then((update) => {
+      if (!update.length) {
+        return response.sendStatus(404);
+      }
+      return response.sendStatus(204);
+    })
+    .catch((error) => {
+      return response.status(500).json({ error });
+    });
+});
+
+app.delete('/api/v1/comments/:id', (request, response) => {
   const { id } = request.params;
 
-  database('discussions').where('id', id).select()
-    .then((discussion) => {
-      return response.status(200).json(discussion);
+  database('comments').where({ id }).del()
+    .then((comment) => {
+      if (comment) {
+        return response.sendStatus(204);
+      }
+      return response.status(422).json({ error: 'Not Found' });
     })
     .catch(error => response.status(500).json({ error }));
 });
@@ -106,19 +170,6 @@ app.post('/api/v1/discussions/:id/comments', (request, response) => {
 
   database('comments').insert(comment, '*')
     .then(insertedComment => response.status(201).json(insertedComment))
-    .catch(error => response.status(500).json({ error }));
-});
-
-app.delete('/api/v1/comments/:id', (request, response) => {
-  const { id } = request.params;
-
-  database('comments').where({ id }).del()
-    .then((comment) => {
-      if (comment) {
-        return response.sendStatus(204);
-      }
-      return response.status(422).json({ error: 'Not Found' });
-    })
     .catch(error => response.status(500).json({ error }));
 });
 
