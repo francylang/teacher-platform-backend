@@ -100,8 +100,27 @@ app.delete('/api/v1/comments/:id', (request, response) => {
       if (comment) {
         return response.sendStatus(204);
       }
-        return response.status(422).json({ error: 'Not Found' });
+      return response.status(422).json({ error: 'Not Found' });
     })
+    .catch(error => response.status(500).json({ error }));
+});
+
+app.post('/api/v1/topicTags/:id/discussions', (request, response) => {
+  let discussion = request.body;
+  const { id } = request.params;
+
+  for (let requiredParameter of ['title', 'body']) {
+    if (!discussion[requiredParameter]) {
+      return response.status(422).json({
+        error: `You are missing the ${requiredParameter} property.`,
+      });
+    }
+  }
+
+  discussion = Object.assign({}, discussion, { tagId: id });
+
+  database('discussions').insert(discussion, '*')
+    .then(insertedDiscussion => response.status(201).json(insertedDiscussion))
     .catch(error => response.status(500).json({ error }));
 });
 
