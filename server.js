@@ -19,28 +19,28 @@ app.get('/', (request, response) => {
 
 app.get('/api/v1/topicTags', (request, response) => {
   database('topicTags').select()
-  .then((topicTags) => {
-    return response.status(200).json(topicTags);
-  })
-  .catch(error => response.status(500).json({ error }));
+    .then((topicTags) => {
+      return response.status(200).json(topicTags);
+    })
+    .catch(error => response.status(500).json({ error }));
 });
 
 app.get('/api/v1/topicTags/:id', (request, response) => {
   const { id } = request.params;
 
   database('topicTags').where('id', id).select()
-  .then((topicTag) => {
-    return response.status(200).json(topicTag);
-  })
-  .catch(error => response.status(500).json({ error }));
+    .then((topicTag) => {
+      return response.status(200).json(topicTag);
+    })
+    .catch(error => response.status(500).json({ error }));
 });
 
 app.get('/api/v1/discussions', (request, response) => {
   database('discussions').select()
-  .then((discussions) => {
-    return response.status(200).json(discussions);
-  })
-  .catch(error => response.status(500).json({ error }));
+    .then((discussions) => {
+      return response.status(200).json(discussions);
+    })
+    .catch(error => response.status(500).json({ error }));
 });
 
 app.post('/api/v1/discussions', (request, response) => {
@@ -76,20 +76,20 @@ app.get('/api/v1/discussions/:id', (request, response) => {
   const { id } = request.params;
 
   database('discussions').where('id', id).select()
-  .then((discussion) => {
-    return response.status(200).json(discussion);
-  })
-  .catch(error => response.status(500).json({ error }));
+    .then((discussion) => {
+      return response.status(200).json(discussion);
+    })
+    .catch(error => response.status(500).json({ error }));
 });
 
 app.get('/api/v1/discussions/:id/comments', (request, response) => {
   const { id } = request.params;
 
   database('comments').where('discussionId', id).select()
-  .then((comments) => {
-    return response.status(200).json(comments);
-  })
-  .catch(error => response.status(500).json({ error }));
+    .then((comments) => {
+      return response.status(200).json(comments);
+    })
+    .catch(error => response.status(500).json({ error }));
 });
 
 app.delete('/api/v1/comments/:id', (request, response) => {
