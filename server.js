@@ -17,7 +17,6 @@ app.locals.title = 'Yo Teach';
 //   console.log('Auth');
 // };
 
-
 app.get('/', (request, response) => {
   response.send('Oh, hai!');
 });
