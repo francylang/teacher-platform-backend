@@ -43,6 +43,35 @@ app.get('/api/v1/discussions', (request, response) => {
   .catch(error => response.status(500).json({ error }));
 });
 
+app.post('/api/v1/discussions', (request, response) => {
+  const discussion = request.body;
+
+  for (const requiredParameter of ['title', 'body', 'tagId']) {
+    if (!discussion[requiredParameter]) {
+      return response.status(422).json({
+        error: `You are missing the ${requiredParameter} property.`
+      });
+    }
+  }
+
+  database('discussions').insert(discussion, 'id')
+    .then(discussionId => response.status(201).json({ id: discussionId[0] }))
+    .catch(error => response.status(500).json({ error }));
+});
+
+app.delete('/api/v1/discussions/:id', (request, response) => {
+  const { id } = request.params;
+
+  database('discussions').where({ id }).del()
+    .then((discussion) => {
+      if (discussion) {
+        return response.sendStatus(204);
+      }
+        return response.status(422).json({ error: 'Not Found' });
+    })
+    .catch(error => response.status(500).json({ error }));
+});
+
 app.get('/api/v1/discussions/:id', (request, response) => {
   const { id } = request.params;
 
@@ -61,6 +90,19 @@ app.get('/api/v1/discussions/:id/comments', (request, response) => {
     return response.status(200).json(comments);
   })
   .catch(error => response.status(500).json({ error }));
+});
+
+app.delete('/api/v1/comments/:id', (request, response) => {
+  const { id } = request.params;
+
+  database('comments').where({ id }).del()
+    .then((comment) => {
+      if (comment) {
+        return response.sendStatus(204);
+      }
+        return response.status(422).json({ error: 'Not Found' });
+    })
+    .catch(error => response.status(500).json({ error }));
 });
 
 app.listen(app.get('port'), () => {

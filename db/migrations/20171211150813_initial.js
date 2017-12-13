@@ -23,7 +23,8 @@ exports.up = function(knex, Promise) {
       table.increments('id').primary();
       table.string('body');
       table.integer('discussionId').unsigned();
-      table.foreign('discussionId').references('discussions.id');
+      table.foreign('discussionId')
+        .references('discussions.id').onDelete('cascade');
 
       table.timestamps(true, true);
     }),
