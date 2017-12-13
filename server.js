@@ -92,6 +92,23 @@ app.get('/api/v1/discussions/:id/comments', (request, response) => {
     .catch(error => response.status(500).json({ error }));
 });
 
+app.post('/api/v1/discussions/:id/comments', (request, response) => {
+  let comment = request.body;
+  const { id } = request.params;
+
+  if (!comment.body) {
+    return response.status(422).json({
+      error: `You are missing the body property.`,
+    });
+  }
+
+  comment = Object.assign({}, comment, { discussionId: id });
+
+  database('comments').insert(comment, '*')
+    .then(insertedComment => response.status(201).json(insertedComment))
+    .catch(error => response.status(500).json({ error }));
+});
+
 app.delete('/api/v1/comments/:id', (request, response) => {
   const { id } = request.params;
 

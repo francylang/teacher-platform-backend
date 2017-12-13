@@ -14,7 +14,8 @@ exports.up = function(knex, Promise) {
       table.string('title');
       table.string('body');
       table.integer('tagId').unsigned();
-      table.foreign('tagId').references('topicTags.id');
+      table.foreign('tagId')
+      .references('topicTags.id').onDelete('cascade');
 
       table.timestamps(true, true);
     }),
