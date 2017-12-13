@@ -49,7 +49,7 @@ app.post('/api/v1/discussions', (request, response) => {
   for (const requiredParameter of ['title', 'body', 'tagId']) {
     if (!discussion[requiredParameter]) {
       return response.status(422).json({
-        error: `You are missing the ${requiredParameter} property.`
+        error: `You are missing the ${requiredParameter} property.`,
       });
     }
   }
@@ -67,7 +67,7 @@ app.delete('/api/v1/discussions/:id', (request, response) => {
       if (discussion) {
         return response.sendStatus(204);
       }
-        return response.status(422).json({ error: 'Not Found' });
+      return response.status(422).json({ error: 'Not Found' });
     })
     .catch(error => response.status(500).json({ error }));
 });
