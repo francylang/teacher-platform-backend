@@ -6,6 +6,8 @@
       "no-use-before-define": 0,
       "no-restricted-syntax": 0,
       "consistent-return": 0,
-      "prefer-const": 0
+      "prefer-const": 0,
+      "no-path-concat": 0,
+      "prefer-template": 0
     }
 }

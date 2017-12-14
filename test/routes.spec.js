@@ -13,31 +13,28 @@ const database = require('knex')(configuration);
 chai.use(chaiHttp);
 
 describe('Client Routes', () => {
-//   it('should return the homepage with text', () => {
-//     return chai.request(server)
-//       .get('/')
-//       .then((response) => {
-//         response.should.have.status(200);
-//         response.should.be.html;
-//         response.res.text.includes('Palette Picker');
-//       })
-//       .catch((error) => {
-//         throw error;
-//       });
-//   });
-//
-//   it('should return a 404 for a route that does not exist',  () => {
-//     return chai.request(server)
-//       .get('/whodis')
-//       .then((response) => {
-//         response.should.have.status(404);
-//       })
-//       .catch((error) => {
-//         throw error;
-//       });
-//   });
-// });
-//
+  it('should return an html homepage with text', (done) => {
+  chai.request(server)
+    .get('/')
+    .end((error, response) => {
+      response.should.have.status(200);
+      response.should.be.html;
+      response.res.text.includes('Teacher Forum');
+      done();
+    });
+});
+
+  it('should return a 404 for a route that does not exist', (done) => {
+    chai.request(server)
+      .get('/sadPath')
+      .end((err, response) => {
+        response.should.have.status(404);
+        done();
+      });
+  });
+
+});
+
 // describe('API Routes', () => {
 //   before((done) => {
 //     database.migrate.latest()
@@ -55,4 +52,4 @@ describe('Client Routes', () => {
 //       });
 //   });
 
-});
+// });
