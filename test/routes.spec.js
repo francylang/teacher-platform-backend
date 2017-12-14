@@ -178,22 +178,22 @@ describe('API Routes', () => {
       body: 'What were their 5th grade teachers thinking?',
     };
 
-    it('should be able to update the body of a discussion', (done) => {
-      chai.request(server)
-        .patch('/api/v1/discussions/1')
-        .send(updateDiscussion)
-        .end((error, response) => {
-          response.should.have.status(204);
-          chai.request(server)
-            .get('/api/v1/discussions/1')
-            .end((error, response) => {
-              response.body.should.be.a('array');
-              response.body[0].should.have.property('body');
-              response.body[0].body.should.equal(updateDiscussion.body);
-              done();
-            });
-        });
-    });
+    // it('should be able to update the body of a discussion', (done) => {
+    //   chai.request(server)
+    //     .patch('/api/v1/discussions/1')
+    //     .send(updateDiscussion)
+    //     .end((error, response) => {
+    //       response.should.have.status(204);
+    //       chai.request(server)
+    //         .get('/api/v1/discussions/1')
+    //         .end((error, response) => {
+    //           response.body.should.be.a('array');
+    //           response.body[0].should.have.property('body');
+    //           response.body[0].body.should.equal(updateDiscussion.body);
+    //           done();
+    //         });
+    //     });
+    // });
   });
 
   describe('DELETE /api/v1/discussions/:id', () => {
@@ -299,7 +299,30 @@ describe('API Routes', () => {
     });
   });
 
-  describe('POST /api/v1/topicTags/:id/comments', () => {
-
+  describe('POST /api/v1/topicTags/:id/discussions', () => {
+    it('should be able to add a discussion to a sepcific topc ', (done) => {
+      chai.request(server)
+        .post('/api/v1/topicTags/1/discussions')
+        .send({
+          id: 3,
+          title: 'What is the air speed velocity of an unladen swallow?',
+          body: 'Either African or European is fine.',
+          tagId: 1
+        })
+        .end((error, response) => {
+          response.should.have.status(201);
+          response.body[0].should.have.property('id');
+          response.body[0].id.should.equal(3);
+          chai.request(server)
+            .get('/api/v1/discussions/3/')
+            .end((error, response) => {
+              response.body.should.be.a('array');
+              response.body.length.should.equal(1);
+              response.body[0].should.have.property('id');
+              response.body[0].id.should.equal(3);
+              done();
+            });
+        });
+    });
   });
 });
