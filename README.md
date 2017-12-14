@@ -30,7 +30,8 @@ The API is REST API. Return format for all endpoints is JSON.
 - Returns all topic tags
 
 #### Return:
-`[
+```javascript
+[
     {
         "id": 2,
         "tagTitle": "6.RP.A.2",
@@ -49,7 +50,7 @@ The API is REST API. Return format for all endpoints is JSON.
         "created_at": "2017-12-14T00:27:08.762Z",
         "updated_at": "2017-12-14T00:27:08.762Z"
     },
-  ]`
+  ]```
 
 
 #### GET a specific Topic Tag
@@ -59,14 +60,15 @@ The API is REST API. Return format for all endpoints is JSON.
 - Returns a specific topic tag by ID
 
 #### Return:
-`[
+```javascript
+[
     {
         "id": 3,
         "tagTitle": "6.RP.A.3",
         "created_at": "2017-12-14T00:27:08.748Z",
         "updated_at": "2017-12-14T00:27:08.748Z"
     }
-]`
+]```
 
 
 #### GET all Discussions
@@ -76,7 +78,8 @@ The API is REST API. Return format for all endpoints is JSON.
 - Returns all discussions
 
 #### Return:
-`[
+```javascript
+[
     {
         "id": 2,
         "title": "Tape Diagrams",
@@ -101,7 +104,7 @@ The API is REST API. Return format for all endpoints is JSON.
         "created_at": "2017-12-14T00:27:08.793Z",
         "updated_at": "2017-12-14T00:27:08.793Z"
     },
-  ]`
+  ]```
 
 #### GET a specific Discussion
 `/api/v1/discussions/:id`
@@ -110,7 +113,8 @@ The API is REST API. Return format for all endpoints is JSON.
 - Returns a specific discussion by ID
 
 #### Return:
-`[
+```javascript
+[
     {
         "id": 4,
         "title": "Coordinate Plane",
@@ -119,7 +123,7 @@ The API is REST API. Return format for all endpoints is JSON.
         "created_at": "2017-12-14T00:27:08.794Z",
         "updated_at": "2017-12-14T00:27:08.794Z"
     }
-]`
+]```
 
 #### GET all Comments that belong to a specific Discussion
 `/api/v1/discussions/:id/comments`
@@ -128,7 +132,8 @@ The API is REST API. Return format for all endpoints is JSON.
 - Returns all comments that belong to a specific discussion
 
 #### Return:
-`[
+```javascript
+[
     {
         "id": 5,
         "body": "They should know x is horizontal and y is vertical; be prepared for misconceptions about counting into negative integers.",
@@ -136,7 +141,7 @@ The API is REST API. Return format for all endpoints is JSON.
         "created_at": "2017-12-14T00:27:08.832Z",
         "updated_at": "2017-12-14T00:27:08.832Z"
     }
-]`
+]```
 
 ### PATCH
 #### PATCH a Discussion
@@ -208,9 +213,10 @@ The API is REST API. Return format for all endpoints is JSON.
 #### Return:
 - The id of the newly created discussion will be returned.
 
-`{
+```javascript
+{
     "id": 46
-}`
+}```
 
 #### POST to Comments
 /api/v1/discussions/:id/comments
@@ -226,7 +232,8 @@ The API is REST API. Return format for all endpoints is JSON.
 
 #### Return:
 - The entire object of the newly created discussion will be returned.
-`[
+```javascript
+[
     {
         "id": 57,
         "body": "I would recommend some visuals - see attached.",
@@ -234,7 +241,7 @@ The API is REST API. Return format for all endpoints is JSON.
         "created_at": "2017-12-14T01:23:04.534Z",
         "updated_at": "2017-12-14T01:23:04.534Z"
     }
-]`
+]```
 
 ### DELETE
 
