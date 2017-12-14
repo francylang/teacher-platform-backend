@@ -14,5 +14,5 @@ test:
 deployment:
   production:
     branch: master
-    # heroku:
-      # appname: palette-picker-lfinney
+    heroku:
+      appname: teacher-forum-backend
