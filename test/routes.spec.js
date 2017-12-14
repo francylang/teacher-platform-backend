@@ -35,21 +35,41 @@ describe('Client Routes', () => {
 
 });
 
-// describe('API Routes', () => {
-//   before((done) => {
-//     database.migrate.latest()
-//       .then(() => done())
-//       .catch((error) => {
-//         throw error;
-//       });
-//   });
-//
-//   beforeEach((done) => {
-//     database.seed.run()
-//       .then(() => done())
-//       .catch((error) => {
-//         throw error;
-//       });
-//   });
+describe('API Routes', () => {
+  before((done) => {
+    database.migrate.latest()
+      .then(() => done())
+      .catch((error) => {
+        throw error;
+      });
+  });
 
-// });
+  beforeEach((done) => {
+    database.seed.run()
+      .then(() => done())
+      .catch((error) => {
+        throw error;
+      });
+  });
+
+  describe('GET /api/v1/topicTags', () => {
+    it('should revtrieve all discussion topic tags', (done) => {
+      chai.request(server)
+        .get('/api/v1/topicTags')
+        .end((error, response) => {
+          response.should.have.status(200);
+          response.should.be.json;
+          response.body.should.be.a('array');
+          response.body.length.should.equal(30);
+          // response.body[0].should.have.property('id')
+          // response.body[0].id.should.equal(1)
+          // response.body[0].should.have.property('tagTitle')
+          // response.body[0].tagTitle.should.equal('6.RP.A.1')
+          // console.log(response.body[10]);
+          // console.log(response.body[20]);
+          done();
+        });
+    })
+  })
+
+});
