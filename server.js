@@ -57,7 +57,6 @@ app.post('/api/v1/authenticate', (request, response) => {
 
   const admin = email.endsWith('@turing.io');
   const token = jwt.sign({ admin }, secretKey);
-  console.log(token);
   return response.status(201).json({ token });
 });
 
