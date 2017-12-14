@@ -11,7 +11,9 @@
 - Post a new discussion to the database.
 
 #### Return:
+- Successful status code of 201.
 - The entire object of the newly created discussion will be returned.
+
 ```javascript
 [
     {
@@ -22,4 +24,16 @@
         "updated_at": "2017-12-14T01:23:04.534Z"
     }
 ]
+```
+#### Errors:
+- This endpoint will throw a 422 if not found:
+
+```javascript
+{ error: 'You are missing the body property.' }
+```
+
+- This endpoint will throw a 500:
+
+```javascript
+{ error: error message here }
 ```
