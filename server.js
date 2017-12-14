@@ -61,11 +61,19 @@ app.post('/api/v1/authenticate', checkAuth, (request, response) => {
 });
 
 app.get('/api/v1/topicTags', (request, response) => {
-  database('topicTags').select()
-    .then((topicTags) => {
-      return response.status(200).json(topicTags);
-    })
-    .catch(error => response.status(500).json({ error }));
+  const queryParameter = request.query.tagTitle;
+
+  if (queryParameter) {
+    database('topicTags').where('tagTitle', queryParameter).select()
+      .then(topicTag => response.status(200).json(topicTag))
+      .catch(() => response.sendStatus(404));
+  } else {
+    database('topicTags').select()
+      .then((topicTags) => {
+        return response.status(200).json(topicTags);
+      })
+      .catch(error => response.status(500).json({ error }));
+  }
 });
 
 app.get('/api/v1/topicTags/:id', (request, response) => {
