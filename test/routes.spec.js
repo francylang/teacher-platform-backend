@@ -26,7 +26,7 @@ describe('Client Routes', () => {
 
   it('should return a 404 for a route that does not exist', (done) => {
     chai.request(server)
-      .get('/sadPath')
+      .get('/sadness')
       .end((err, response) => {
         response.should.have.status(404);
         done();
@@ -60,16 +60,71 @@ describe('API Routes', () => {
           response.should.have.status(200);
           response.should.be.json;
           response.body.should.be.a('array');
-          response.body.length.should.equal(30);
-          // response.body[0].should.have.property('id')
-          // response.body[0].id.should.equal(1)
-          // response.body[0].should.have.property('tagTitle')
-          // response.body[0].tagTitle.should.equal('6.RP.A.1')
-          // console.log(response.body[10]);
-          // console.log(response.body[20]);
+          response.body.length.should.equal(2);
+          response.body[0].should.have.property('id');
+          response.body[0].id.should.equal(1);
+          response.body[0].should.have.property('tagTitle');
+          response.body[0].tagTitle.should.equal('6.RP.A.1');
+          response.body[1].should.have.property('id');
+          response.body[1].id.should.equal(2);
+          response.body[1].should.have.property('tagTitle');
+          response.body[1].tagTitle.should.equal('6.RP.A.2');
           done();
         });
-    })
-  })
+    });
 
+
+    it('should return a 404 if path does not exist', (done) => {
+      chai.request(server)
+        .get('/api/v1/sadness')
+        .end((error, response) => {
+          response.should.have.status(404);
+          done();
+        });
+    });
+  });
+
+  describe('GET /api/v1/topicTags/:id', () => {
+
+  });
+
+  describe('GET /api/v1/discussions/', () => {
+
+  });
+
+  describe('POST /api/v1/discussions/', () => {
+
+  });
+
+  describe('GET /api/v1/discussions/:id', () => {
+
+  });
+
+  describe('PATCH /api/v1/discussions/:id', () => {
+
+  });
+
+  describe('DELETE /api/v1/discussions/:id', () => {
+
+  });
+
+  describe('PATCH /api/v1/comments/:id', () => {
+
+  });
+
+  describe('DELETE /api/v1/comments/:id', () => {
+
+  });
+
+  describe('GET /api/v1/discussions/:id/comments', () => {
+
+  });
+
+  describe('POST /api/v1/discussions/:id/comments', () => {
+
+  });
+
+  describe('POST /api/v1/topicTags/:id/comments', () => {
+
+  });
 });
