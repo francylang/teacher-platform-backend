@@ -61,7 +61,7 @@ const discussionsData = [
       {
         id: 1,
         title: "Unit Rate",
-        body: "Didn't kids get this in Grade 5? I'm confused about why it's in the standards.",
+        body: "Didn't kids get this in Grade 5?",
         comments: [
           {
             id: 1,
@@ -74,33 +74,5 @@ const discussionsData = [
         ],
       },
     ],
-  },
-  {
-    id: 2,
-    tagTitle: "6.RP.A.2",
-    discussions: [
-      {
-        id: 2,
-        title: "Tape Diagrams",
-        body: "I'm having a hard time grasping tape diagrams well enough to teach kids how to use them as a tool. Any resources?",
-        comments: [
-          {
-            id: 3,
-            body: "Learn Zillion!",
-          },
-        ],
-      },
-      {
-        id: 3,
-        title: "Double number line",
-        body: "I get it, but I'm struggling to find the words to explain this without getting too procedural. Any tips?",
-        comments: [
-          {
-            id: 4,
-            body: "Here is a resource...",
-          },
-        ],
-      },
-    ],
-  },
+  }
 ];
