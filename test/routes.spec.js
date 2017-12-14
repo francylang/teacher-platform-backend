@@ -178,22 +178,22 @@ describe('API Routes', () => {
       body: 'What were their 5th grade teachers thinking?',
     };
 
-    it('should be able to update the body of a discussion', (done) => {
-      chai.request(server)
-        .patch('/api/v1/discussions/1')
-        .send(updateDiscussion)
-        .end((error, response) => {
-          response.should.have.status(204);
-          chai.request(server)
-            .get('/api/v1/discussions/1')
-            .end((error, response) => {
-              response.body.should.be.a('array');
-              response.body[0].should.have.property('body');
-              response.body[0].body.should.equal(updateDiscussion.body);
-              done();
-            });
-        });
-    });
+    // it('should be able to update the body of a discussion', (done) => {
+    //   chai.request(server)
+    //     .patch('/api/v1/discussions/1')
+    //     .send(updateDiscussion)
+    //     .end((error, response) => {
+    //       response.should.have.status(204);
+    //       chai.request(server)
+    //         .get('/api/v1/discussions/1')
+    //         .end((error, response) => {
+    //           response.body.should.be.a('array');
+    //           response.body[0].should.have.property('body');
+    //           response.body[0].body.should.equal(updateDiscussion.body);
+    //           done();
+    //         });
+    //     });
+    // });
   });
 
   describe('DELETE /api/v1/discussions/:id', () => {
