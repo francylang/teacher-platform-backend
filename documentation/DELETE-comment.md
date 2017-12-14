@@ -1,5 +1,5 @@
 #### DELETE a specific Comment
-/api/v1/comments/:id
+`/api/v1/comments/:id`
 
 #### Authentication:
 - JWT is required to be passed into one of the following:
