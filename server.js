@@ -6,16 +6,52 @@ const app = express();
 const environment = process.env.NODE_ENV || 'development';
 const configuration = require('./knexfile')[environment];
 const database = require('knex')(configuration);
+const jwt = require('jsonwebtoken');
+
+app.set('secretKey', process.env.SECRET_KEY);
+
+const checkAuth = (request, response, next) => {
+  let token = request.body.token || request.params('token') || request.headers.authorization;
+  const secretKey = app.get('secretKey');
+
+  if (!token) {
+    return response.status(403).send('You must be authorized to hit this endpoint.');
+  }
+
+  jwt.verify(token, secretKey, { maxAge: '48h' }, (err, decoded) => {
+    if (err) {
+      return response.status(403).json('Invalid token.');
+    }
+
+    if (decoded.body === 'body') {
+      next();
+    } else {
+      return response.status(403).json({ error: 'Invalid application. ' });
+    }
+  });
+};
+
+app.post('/api/v1/authenticate', (request, response) => {
+  const secretKey = app.get('secretKey');
+
+  for (let requiredParameter of ['appName', 'email']) {
+    if (!request.body[requiredParameter]) {
+      return response.status(422).json({
+        error: `You are missing the ${requiredParameter} property.`,
+      });
+    }
+  }
+
+  jwt.sign(request.body, secretKey, { expiresIn: '48h' }, (err, token) => {
+    return response.status(201).json({ token });
+  });
+});
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.set('port', process.env.PORT || 3000);
 app.locals.title = 'Yo Teach';
-
-// const checkAuth = () => {
-//   console.log('Auth');
-// };
 
 app.get('/', (request, response) => {
   response.send('Oh, hai!');
@@ -74,13 +110,13 @@ app.get('/api/v1/discussions/:id', (request, response) => {
     .catch(error => response.status(500).json({ error }));
 });
 
-app.patch('/api/v1/discussions/:id', (request, response) => {
+app.patch('/api/v1/discussions/:id', checkAuth, (request, response) => {
   const { id } = request.params;
   const bodyUpdate = request.body;
 
   if (!bodyUpdate.body) {
     return response.status(422).json({
-      error: `You must send only an object literal with the key 'body' and a string value.`,
+      error: `You must send only an object literal.`,
     });
   }
 
