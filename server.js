@@ -8,17 +8,27 @@ const configuration = require('./knexfile')[environment];
 const database = require('knex')(configuration);
 const jwt = require('jsonwebtoken');
 
+require('dotenv').config();
+
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.set('port', process.env.PORT || 3000);
+app.locals.title = 'Teacher Forum';
+app.use(express.static(__dirname + '/public'));
+
 app.set('secretKey', process.env.SECRET_KEY);
 
 const checkAuth = (request, response, next) => {
-  let token = request.body.token || request.params('token') || request.headers.authorization;
+  let token = request.body.token || request.query.token || request.headers['x-access-token'];
   const secretKey = app.get('secretKey');
 
   if (!token) {
     return response.status(403).send('You must be authorized to hit this endpoint.');
   }
 
-  jwt.verify(token, secretKey, { maxAge: '48h' }, (err, decoded) => {
+  jwt.verify(token, secretKey, (err, decoded) => {
     if (err) {
       return response.status(403).json('Invalid token.');
     }
@@ -31,32 +41,23 @@ const checkAuth = (request, response, next) => {
   });
 };
 
-app.post('/api/v1/authenticate', (request, response) => {
-  const secretKey = app.get('secretKey');
-
-  for (let requiredParameter of ['appName', 'email']) {
-    if (!request.body[requiredParameter]) {
-      return response.status(422).json({
-        error: `You are missing the ${requiredParameter} property.`,
-      });
-    }
-  }
-
-  jwt.sign(request.body, secretKey, { expiresIn: '48h' }, (err, token) => {
-    return response.status(201).json({ token });
-  });
-});
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-app.set('port', process.env.PORT || 3000);
-app.locals.title = 'Teacher Forum';
-app.use(express.static(__dirname + '/public'));
-
-
 app.get('/', (request, response) => {
   response.send('Oh, hai!');
+});
+
+app.post('/api/v1/authenticate', (request, response) => {
+  const secretKey = app.get('secretKey');
+  const { email, appName } = request.body;
+
+  if (!email || !appName) {
+    return response.status(422).json({
+      error: `You are missing an email, application name, or both.`,
+    });
+  }
+
+  const admin = email.endsWith('@turing.io');
+  const token = jwt.sign({ admin }, secretKey);
+  return response.status(201).json({ token });
 });
 
 app.get('/api/v1/topicTags', (request, response) => {
