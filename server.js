@@ -45,7 +45,7 @@ app.get('/', (request, response) => {
   response.send('Oh, hai!');
 });
 
-app.post('/api/v1/authenticate', (request, response) => {
+app.post('/api/v1/authenticate', checkAuth, (request, response) => {
   const secretKey = app.get('secretKey');
   const { email, appName } = request.body;
 
@@ -86,7 +86,7 @@ app.get('/api/v1/discussions', (request, response) => {
     .catch(error => response.status(500).json({ error }));
 });
 
-app.post('/api/v1/discussions', (request, response) => {
+app.post('/api/v1/discussions', checkAuth, (request, response) => {
   const discussion = request.body;
 
   for (const requiredParameter of ['title', 'body', 'tagId']) {
@@ -136,7 +136,7 @@ app.patch('/api/v1/discussions/:id', checkAuth, (request, response) => {
     });
 });
 
-app.delete('/api/v1/discussions/:id', (request, response) => {
+app.delete('/api/v1/discussions/:id', checkAuth, (request, response) => {
   const { id } = request.params;
 
   database('discussions').where({ id }).del()
@@ -149,7 +149,7 @@ app.delete('/api/v1/discussions/:id', (request, response) => {
     .catch(error => response.status(500).json({ error }));
 });
 
-app.patch('/api/v1/comments/:id', (request, response) => {
+app.patch('/api/v1/comments/:id', checkAuth, (request, response) => {
   const { id } = request.params;
   const commentUpdate = request.body;
 
@@ -172,7 +172,7 @@ app.patch('/api/v1/comments/:id', (request, response) => {
     });
 });
 
-app.delete('/api/v1/comments/:id', (request, response) => {
+app.delete('/api/v1/comments/:id', checkAuth, (request, response) => {
   const { id } = request.params;
 
   database('comments').where({ id }).del()
@@ -195,7 +195,7 @@ app.get('/api/v1/discussions/:id/comments', (request, response) => {
     .catch(error => response.status(500).json({ error }));
 });
 
-app.post('/api/v1/discussions/:id/comments', (request, response) => {
+app.post('/api/v1/discussions/:id/comments', checkAuth, (request, response) => {
   let comment = request.body;
   const { id } = request.params;
 
@@ -212,7 +212,7 @@ app.post('/api/v1/discussions/:id/comments', (request, response) => {
     .catch(error => response.status(500).json({ error }));
 });
 
-app.post('/api/v1/topicTags/:id/discussions', (request, response) => {
+app.post('/api/v1/topicTags/:id/discussions', checkAuth, (request, response) => {
   let discussion = request.body;
   const { id } = request.params;
 
