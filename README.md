@@ -9,39 +9,22 @@ The API is a RESTful API. Return format for all endpoints is JSON.
 
 ## Endpoints
 ### GET
-
-#### GET all Topic Tags
-
-#### GET a specific Topic Tag
-
-#### GET all Discussions
-
-#### GET a specific Discussion
-
-#### GET all Comments that belong to a specific Discussion
-
+- [GET all Topic Tags](https://github.com/lfinney/build-your-own-backend/tree/documentation/GET-topic-tags.md)
+- [GET a specific Topic Tag](https://github.com/lfinney/build-your-own-backend/tree/documentation/GET-topic-tag.md)
+- [GET all Discussions](https://github.com/lfinney/build-your-own-backend/tree/documentation/GET-discussions.md)
+- [GET a specific Discussion](https://github.com/lfinney/build-your-own-backend/tree/documentation/GET-discussion.md)
+- [GET all Comments that belong to a specific Discussion](https://github.com/lfinney/build-your-own-backend/tree/documentation/GET-comments.md)
 
 ### PATCH
-#### PATCH a Discussion
-
-#### PATCH a Comment
-
+- [PATCH a Discussion](https://github.com/lfinney/build-your-own-backend/tree/documentation/PATCH-discussion.md)
+- [PATCH a Comment](https://github.com/lfinney/build-your-own-backend/tree/documentation/PATCH-comment.md)
 
 ### POST
-
-#### POST Authenticate
-
-#### POST to Discussions
-/api/v1/discussions
-
-#### POST to Discussions
-/api/v1/topicTags/:id/discussions
-
-#### POST to Comments
-
+- [POST Authenticate](https://github.com/lfinney/build-your-own-backend/tree/documentation/POST-authenticate.md)
+- [POST to Discussions](https://github.com/lfinney/build-your-own-backend/tree/documentation/POST-discussion.md)
+- [POST to Comments](https://github.com/lfinney/build-your-own-backend/tree/documentation/POST-comment.md)
 
 ### DELETE
 
-#### DELETE a specific Discussion
-
-#### DELETE a specific Comment
+- [DELETE a specific Discussion](https://github.com/lfinney/build-your-own-backend/tree/documentation/DELETE-discussion.md)
+- [DELETE a specific Comment](https://github.com/lfinney/build-your-own-backend/tree/documentation/DELETE-comment.md)
