@@ -11,7 +11,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.set('port', process.env.PORT || 3000);
-app.locals.title = 'Yo Teach';
+app.locals.title = 'Teacher Forum';
+app.use(express.static(__dirname + '/public'));
+
 
 // const checkAuth = () => {
 //   console.log('Auth');
@@ -195,3 +197,5 @@ app.post('/api/v1/topicTags/:id/discussions', (request, response) => {
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on ${app.get('port')}.`);
 });
+
+module.exports = app;
