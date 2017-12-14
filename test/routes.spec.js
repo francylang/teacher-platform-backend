@@ -148,7 +148,7 @@ describe('API Routes', () => {
         });
     });
 
-    //well need a test with the auth token
+    //we'll need a test with the auth token
   });
 
   describe('GET /api/v1/discussions/:id', () => {
@@ -276,7 +276,27 @@ describe('API Routes', () => {
   });
 
   describe('POST /api/v1/discussions/:id/comments', () => {
-
+    it('should be able to add a comments for a discussion', (done) => {
+      chai.request(server)
+        .post('/api/v1/discussions/1/comments')
+        .send({
+          id: 3,
+          body: 'Kids forget things sometimes',
+          discussionId: 1
+        })
+        .end((error, response) => {
+          response.should.have.status(201);
+          response.body[0].should.have.property('id');
+          response.body[0].id.should.equal(3);
+          chai.request(server)
+            .get('/api/v1/discussions/1/comments')
+            .end((error, response) => {
+              response.body.should.be.a('array');
+              response.body.length.should.equal(3);
+              done();
+            });
+        });
+    });
   });
 
   describe('POST /api/v1/topicTags/:id/comments', () => {
