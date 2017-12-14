@@ -21,7 +21,7 @@ app.use(express.static(__dirname + '/public'));
 app.set('secretKey', process.env.SECRET_KEY);
 
 const checkAuth = (request, response, next) => {
-  let token = request.body.token || request.query.token || request.headers['x-access-token'];
+  let token = request.body.token || request.query.token || request.headers.authorization;
   const secretKey = app.get('secretKey');
 
   if (!token) {
@@ -33,7 +33,7 @@ const checkAuth = (request, response, next) => {
       return response.status(403).json('Invalid token.');
     }
 
-    if (decoded.body === 'body') {
+    if (decoded.admin) {
       next();
     } else {
       return response.status(403).json({ error: 'Invalid application. ' });
@@ -45,7 +45,7 @@ app.get('/', (request, response) => {
   response.send('Oh, hai!');
 });
 
-app.post('/api/v1/authenticate', checkAuth, (request, response) => {
+app.post('/api/v1/authenticate', (request, response) => {
   const secretKey = app.get('secretKey');
   const { email, appName } = request.body;
 
