@@ -216,15 +216,63 @@ describe('API Routes', () => {
   });
 
   describe('PATCH /api/v1/comments/:id', () => {
+    const updateComments = {
+      body: 'They weren\'t thinking.',
+    };
 
+    it('should be able to update the body of a comment', (done) => {
+      chai.request(server)
+        .patch('/api/v1/comments/1')
+        .send(updateComments)
+        .end((error, response) => {
+          response.should.have.status(204);
+          chai.request(server)
+            .get('/api/v1/discussions/1/comments/')
+            .end((error, response) => {
+              response.body.should.be.a('array');
+              response.body[1].should.have.property('body');
+              response.body[1].body.should.equal(updateComments.body);
+              done();
+            });
+        });
+    });
   });
 
   describe('DELETE /api/v1/comments/:id', () => {
-
+    it('should delete a specific comment', (done) => {
+      chai.request(server)
+        .delete('/api/v1/comments/1')
+        .end( (error, response) => {
+          response.should.have.status(204);
+          response.body.should.be.a('object');
+          chai.request(server)
+            .get('/api/v1/comments/1')
+            .end( (error, response) => {
+              response.should.have.status(404);
+              done();
+            });
+        });
+    });
   });
 
   describe('GET /api/v1/discussions/:id/comments', () => {
-
+    it('should retrieve all comments for a discussion', (done) => {
+      chai.request(server)
+        .get('/api/v1/discussions/1/comments')
+        .end((error, response) => {
+          response.should.have.status(200);
+          response.should.be.json;
+          response.body.should.be.a('array');
+          response.body.length.should.equal(2);
+          response.body[0].should.have.property('id');
+          response.body[0].id.should.equal(1);
+          response.body[0].should.have.property('body');
+          response.body[0].body.should.equal('Yes but it\'s important');
+          response.body[0].should.have.property('discussionId');
+          response.body[0].discussionId.should.equal(1);
+          done();
+      })
+    });
   });
 
   describe('POST /api/v1/discussions/:id/comments', () => {
