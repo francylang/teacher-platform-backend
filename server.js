@@ -21,7 +21,7 @@ app.use(express.static(__dirname + '/public'));
 app.set('secretKey', process.env.SECRET_KEY);
 
 const checkAuth = (request, response, next) => {
-  let token = request.body.token || request.query.token || request.headers['x-access-token'];
+  let token = request.body.token || request.query.token || request.headers.authorization;
   const secretKey = app.get('secretKey');
 
   if (!token) {
@@ -33,7 +33,7 @@ const checkAuth = (request, response, next) => {
       return response.status(403).json('Invalid token.');
     }
 
-    if (decoded.body === 'body') {
+    if (decoded.admin) {
       next();
     } else {
       return response.status(403).json({ error: 'Invalid application. ' });
@@ -61,11 +61,19 @@ app.post('/api/v1/authenticate', (request, response) => {
 });
 
 app.get('/api/v1/topicTags', (request, response) => {
-  database('topicTags').select()
-    .then((topicTags) => {
-      return response.status(200).json(topicTags);
-    })
-    .catch(error => response.status(500).json({ error }));
+  const queryParameter = request.query.tagTitle;
+
+  if (queryParameter) {
+    database('topicTags').where('tagTitle', queryParameter).select()
+      .then(topicTag => response.status(200).json(topicTag))
+      .catch(() => response.sendStatus(404));
+  } else {
+    database('topicTags').select()
+      .then((topicTags) => {
+        return response.status(200).json(topicTags);
+      })
+      .catch(error => response.status(500).json({ error }));
+  }
 });
 
 app.get('/api/v1/topicTags/:id', (request, response) => {
@@ -86,7 +94,7 @@ app.get('/api/v1/discussions', (request, response) => {
     .catch(error => response.status(500).json({ error }));
 });
 
-app.post('/api/v1/discussions', (request, response) => {
+app.post('/api/v1/discussions', checkAuth, (request, response) => {
   const discussion = request.body;
 
   for (const requiredParameter of ['title', 'body', 'tagId']) {
@@ -136,7 +144,7 @@ app.patch('/api/v1/discussions/:id', checkAuth, (request, response) => {
     });
 });
 
-app.delete('/api/v1/discussions/:id', (request, response) => {
+app.delete('/api/v1/discussions/:id', checkAuth, (request, response) => {
   const { id } = request.params;
 
   database('discussions').where({ id }).del()
@@ -149,7 +157,7 @@ app.delete('/api/v1/discussions/:id', (request, response) => {
     .catch(error => response.status(500).json({ error }));
 });
 
-app.patch('/api/v1/comments/:id', (request, response) => {
+app.patch('/api/v1/comments/:id', checkAuth, (request, response) => {
   const { id } = request.params;
   const commentUpdate = request.body;
 
@@ -172,7 +180,7 @@ app.patch('/api/v1/comments/:id', (request, response) => {
     });
 });
 
-app.delete('/api/v1/comments/:id', (request, response) => {
+app.delete('/api/v1/comments/:id', checkAuth, (request, response) => {
   const { id } = request.params;
 
   database('comments').where({ id }).del()
@@ -195,7 +203,7 @@ app.get('/api/v1/discussions/:id/comments', (request, response) => {
     .catch(error => response.status(500).json({ error }));
 });
 
-app.post('/api/v1/discussions/:id/comments', (request, response) => {
+app.post('/api/v1/discussions/:id/comments', checkAuth, (request, response) => {
   let comment = request.body;
   const { id } = request.params;
 
@@ -212,7 +220,7 @@ app.post('/api/v1/discussions/:id/comments', (request, response) => {
     .catch(error => response.status(500).json({ error }));
 });
 
-app.post('/api/v1/topicTags/:id/discussions', (request, response) => {
+app.post('/api/v1/topicTags/:id/discussions', checkAuth, (request, response) => {
   let discussion = request.body;
   const { id } = request.params;
 
