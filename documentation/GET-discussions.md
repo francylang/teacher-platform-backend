@@ -5,6 +5,7 @@
 - Returns all discussions
 
 #### Return:
+-  A successful 200 response will be served.
 ```javascript
 [
     {
@@ -32,4 +33,10 @@
         "updated_at": "2017-12-14T00:27:08.793Z"
     },
   ]
+```
+#### Errors:
+- This endpoint will throw a 500:
+
+```javascript
+{ error: error message here }
 ```
