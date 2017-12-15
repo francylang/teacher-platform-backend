@@ -265,7 +265,7 @@ describe('API Routes', () => {
         });
     });
 
-    it.only('should not delete a specific comment if user does not have authorization', (done) => {
+    it('should not delete a specific comment if user does not have authorization', (done) => {
       chai.request(server)
         .delete('/api/v1/comments/1')
         .end( (error, response) => {
