@@ -151,8 +151,7 @@ describe('API Routes', () => {
         })
         .end((error, response) => {
           response.should.have.status(201);
-          response.body.should.have.property('id');
-          response.body.id.should.equal(2);
+          response.body.includes({'id': 2});
           chai.request(server)
             .get('/api/v1/discussions')
             .end((error, response) => {
@@ -160,6 +159,21 @@ describe('API Routes', () => {
               response.body.length.should.equal(2);
               done();
             });
+        });
+    });
+
+    it('should be able to add a new discussion', (done) => {
+      chai.request(server)
+        .post('/api/v1/discussions/')
+        .set('Authorization', token)
+        .send({
+          id: 2,
+          title: 'Kids these days...',
+          tagId: 1
+        })
+        .end((error, response) => {
+          response.should.have.status(422);
+           done();
         });
     });
 
@@ -182,7 +196,7 @@ describe('API Routes', () => {
       })
     });
 
-    it.only('should return a 404 if path does not exist', (done) => {
+    it('should return a 404 if path does not exist', (done) => {
       chai.request(server)
         .get('/api/v1/sadness')
         .end((error, response) => {
@@ -327,8 +341,7 @@ describe('API Routes', () => {
         })
         .end((error, response) => {
           response.should.have.status(201);
-          response.body[0].should.have.property('id');
-          response.body[0].id.should.equal(3);
+          response.body.includes({ 'id': 3 });
           chai.request(server)
             .get('/api/v1/discussions/1/comments')
             .end((error, response) => {
@@ -338,6 +351,21 @@ describe('API Routes', () => {
             });
         });
     });
+
+    it('should throw a 422 if a comment body is not provided', (done) => {
+      chai.request(server)
+        .post('/api/v1/discussions/1/comments')
+        .set('Authorization', token)
+        .send({
+          id: 3,
+          discussionId: 1
+        })
+        .end((error, response) => {
+          response.should.have.status(422);
+          done();
+        });
+    });
+
   });
 
   describe('POST /api/v1/topicTags/:id/discussions', () => {
@@ -353,18 +381,33 @@ describe('API Routes', () => {
         })
         .end((error, response) => {
           response.should.have.status(201);
-          response.body[0].should.have.property('id');
-          response.body[0].id.should.equal(3);
+          response.body.includes({ 'id': 3 });
           chai.request(server)
             .get('/api/v1/discussions/3/')
             .end((error, response) => {
               response.body.should.be.a('array');
               response.body.length.should.equal(1);
-              response.body[0].should.have.property('id');
-              response.body[0].id.should.equal(3);
+              response.body.includes({ 'id': 3 });
               done();
             });
         });
     });
+
+    it('should throw a 422 if a discussion title is not provided', (done) => {
+      chai.request(server)
+        .post('/api/v1/topicTags/1/discussions')
+        .set('Authorization', token)
+        .send({
+          id: 3,
+          body: 'Either African or European is fine.',
+          tagId: 1
+        })
+        .end((error, response) => {
+          response.should.have.status(422);
+          done();
+        });
+    });
+
   });
+
 });
