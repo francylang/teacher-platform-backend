@@ -25,6 +25,7 @@ The API is a RESTful API. Return format for all endpoints is JSON.
 
 
 ### Data can be written to the server by utilizing the endpoints below. In order to write on the server a user requires the necessary authorization and must be authenticated.
+_Example use of JWT authentication: api/v1/discussions/?token=UNIQUE_JWT_
 
 #### PATCH
 - [PATCH a Discussion](https://github.com/lfinney/build-your-own-backend/blob/master/documentation/PATCH-discussion.md)
