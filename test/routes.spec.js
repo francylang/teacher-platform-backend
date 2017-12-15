@@ -151,7 +151,8 @@ describe('API Routes', () => {
         })
         .end((error, response) => {
           response.should.have.status(201);
-          response.body.includes({'id': 2});
+          response.body.should.have.property('id');
+          response.body.id.should.equal(2);
           chai.request(server)
             .get('/api/v1/discussions')
             .end((error, response) => {
