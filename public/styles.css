@@ -67,18 +67,32 @@ button {
   outline: none;
 }
 
-button:hover {
+button:hover:enabled {
   cursor: pointer;
   background-color: #606AF2;
 }
 
-#error {
-  color: white;
+button:disabled {
+  background-color: #88C6F5;
 }
+
+#error {
+  color: #E7EBEE;
+}
+
+#token-title {
+  color: #E7EBEE;
+  margin: 25px 0 15px 0;
+}
+
+.hidden {
+  display: none;
+}
+
 #userToken {
   margin: 10px auto;
-  color: #fff;
   overflow-wrap: break-word;
-  padding: 35px 0;
+  padding-bottom: 35px;
   color: #E7EBEE;
+  font-size: 95%;
 }
