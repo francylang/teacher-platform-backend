@@ -67,18 +67,11 @@ describe('API Routes', () => {
           response.should.be.json;
           response.body.should.be.a('array');
           response.body.length.should.equal(1);
-          response.body[0].should.have.property('id');
-          response.body[0].id.should.equal(1);
-          response.body[0].should.have.property('tagTitle');
-          response.body[0].tagTitle.should.equal('6.RP.A.1');
-          // response.body[1].should.have.property('id');
-          // response.body[1].id.should.equal(2);
-          // response.body[1].should.have.property('tagTitle');
-          // response.body[1].tagTitle.should.equal('6.RP.A.2');
+          response.body.includes({ 'id': 1 });
+          response.body.includes({ 'tagTitle': '6.RP.A.1'});
           done();
         });
     });
-
 
     it('should return a 404 if path does not exist', (done) => {
       chai.request(server)
@@ -88,6 +81,7 @@ describe('API Routes', () => {
           done();
         });
     });
+
   });
 
   describe('GET /api/v1/topicTags/:id', () => {
@@ -99,13 +93,21 @@ describe('API Routes', () => {
           response.should.be.json;
           response.body.should.be.a('array');
           response.body.length.should.equal(1);
-          response.body[0].should.have.property('id');
-          response.body[0].id.should.equal(1);
-          response.body[0].should.have.property('tagTitle');
-          response.body[0].tagTitle.should.equal('6.RP.A.1');
+          response.body.includes({ 'id': 1});
+          response.body.includes({ 'tagTitle': '6.RP.A.1'});
           done();
       })
     });
+
+    it('should return a 404 if path does not exist', (done) => {
+      chai.request(server)
+        .get('/api/v1/sadness')
+        .end((error, response) => {
+          response.should.have.status(404);
+          done();
+        });
+    });
+
   });
 
   describe('GET /api/v1/discussions/', () => {
@@ -117,17 +119,23 @@ describe('API Routes', () => {
           response.should.be.json;
           response.body.should.be.a('array');
           response.body.length.should.equal(1);
-          response.body[0].should.have.property('id');
-          response.body[0].id.should.equal(1);
-          response.body[0].should.have.property('tagId');
-          response.body[0].tagId.should.equal(1);
-          response.body[0].should.have.property('title');
-          response.body[0].title.should.equal('Unit Rate');
-          response.body[0].should.have.property('body');
-          response.body[0].body.should.equal('Didn\'t kids get this in Grade 5?');
+          response.body.includes({ 'id': 1 });
+          response.body.includes({ 'tagId': 1});
+          response.body.includes({ 'title': 'Unit Rate'});
+          response.body.includes({'body': 'Didn\'t kids get this in Grade 5?'});
           done();
         });
     });
+
+    it('should return a 404 if path does not exist', (done) => {
+      chai.request(server)
+        .get('/api/v1/sadness')
+        .end((error, response) => {
+          response.should.have.status(404);
+          done();
+        });
+    });
+
   });
 
   describe('POST /api/v1/discussions/', () => {
@@ -155,7 +163,6 @@ describe('API Routes', () => {
         });
     });
 
-    //we'll need a test with the auth token
   });
 
   describe('GET /api/v1/discussions/:id', () => {
@@ -167,17 +174,23 @@ describe('API Routes', () => {
           response.should.be.json;
           response.body.should.be.a('array');
           response.body.length.should.equal(1);
-          response.body[0].should.have.property('id');
-          response.body[0].id.should.equal(1);
-          response.body[0].should.have.property('tagId');
-          response.body[0].tagId.should.equal(1);
-          response.body[0].should.have.property('title');
-          response.body[0].title.should.equal('Unit Rate');
-          response.body[0].should.have.property('body');
-          response.body[0].body.should.equal('Didn\'t kids get this in Grade 5?');
+          response.body.includes({'id': 1});
+          response.body.includes({'tagId': 1});
+          response.body.includes({'title': 'Unit Rate'});
+          response.body.includes({'body': 'Didn\'t kids get this in Grade 5?'});
           done();
       })
     });
+
+    it.only('should return a 404 if path does not exist', (done) => {
+      chai.request(server)
+        .get('/api/v1/sadness')
+        .end((error, response) => {
+          response.should.have.status(404);
+          done();
+        });
+    });
+
   });
 
   describe('PATCH /api/v1/discussions/:id', () => {
@@ -290,6 +303,16 @@ describe('API Routes', () => {
           done();
       })
     });
+
+    it('should return a 404 if path does not exist', (done) => {
+      chai.request(server)
+        .get('/api/v1/sadness')
+        .end((error, response) => {
+          response.should.have.status(404);
+          done();
+        });
+    });
+
   });
 
   describe('POST /api/v1/discussions/:id/comments', () => {
