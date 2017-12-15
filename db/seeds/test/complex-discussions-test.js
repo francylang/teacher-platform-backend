@@ -14,6 +14,7 @@ const createDiscussion = (knex, comments, discussion) => {
       });
       return Promise.all(commentPromises);
     })
+    // eslint-disable-next-line
     .catch(error => console.log(`Error in discussion: ${error}`));
 };
 
@@ -35,6 +36,7 @@ const createTopicTag = (knex, topic) => {
       });
       return Promise.all(discussionPromises);
     })
+    // eslint-disable-next-line
     .catch(error => console.log(`Error in topic: ${error}`));
 };
 
@@ -50,6 +52,7 @@ exports.seed = (knex, Promise) => {
       });
       return Promise.all(topicTagPromises);
     })
+    // eslint-disable-next-line
     .catch(error => console.error(`Error seeding data: ${error}`));
 };
 
