@@ -6,6 +6,8 @@
 
 #### Return:
 -  A successful 200 response will be served.
+- An example of the returned array can be found below
+
 ```javascript
 [
     {

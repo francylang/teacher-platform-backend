@@ -7,10 +7,16 @@ const environment = process.env.NODE_ENV || 'development';
 const configuration = require('./knexfile')[environment];
 const database = require('knex')(configuration);
 const jwt = require('jsonwebtoken');
-
 require('dotenv').config();
 
+const httpsRedirect = (request, response, next) => {
+  if (request.header('x-forwarded-proto') !== 'https') {
+    return response.redirect(`https://${request.get('host')}${request.url}`);
+  }
+  next();
+};
 
+if (process.env.NODE_ENV === 'production') { app.use(httpsRedirect); }
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 

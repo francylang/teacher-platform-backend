@@ -3,12 +3,12 @@
 
 ##### Description:
 - Returns all topic tags
+- User may also filter for a specific topic tog by specifying a search parameter when making a GET request. _Example: /api/v1/topicTags/?tagTitle=6.RP.A.2_
 
 #### Return:
 -  A successful 200 response will be served.
+-  An example of the returned array can be found below
 
-
-Example: 
 ```javascript
 [
     {

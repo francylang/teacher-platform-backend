@@ -1,14 +1,14 @@
 #### POST to Discussions
-/api/v1/discussions
+/api/v1/topicTags/:id/discussions
 
 #### Authentication:
 - JWT is required to be passed into one of the following:
-  - query parameter ('api/v1/discussions/?token=UNIQUE_JWT')
+  - query parameter ('api/v1/topicTags/:id/discussions/?token=UNIQUE_JWT')
   - request header
   - request body
 
 ##### Description:
-- Post a new discussion to the database without assigning it a Topic Tag. _This is useful if one would like to post a discussion, but none of the current Topic Tags fit the essence of your discussion._
+- Post a new discussion to the database while a assigning it to a specific Topic Tag.
 
 #### Return:
 - Successful status code of 201.
