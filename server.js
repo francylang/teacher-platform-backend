@@ -246,6 +246,7 @@ app.post('/api/v1/topicTags/:id/discussions', checkAuth, (request, response) => 
 });
 
 app.listen(app.get('port'), () => {
+  // eslint-disable-next-line
   console.log(`${app.locals.title} is running on ${app.get('port')}.`);
 });
 
