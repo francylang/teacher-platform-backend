@@ -28,3 +28,9 @@ The API is a RESTful API. Return format for all endpoints is JSON.
 
 - [DELETE a specific Discussion](https://github.com/lfinney/build-your-own-backend/blob/master/documentation/DELETE-discussion.md)
 - [DELETE a specific Comment](https://github.com/lfinney/build-your-own-backend/blob/master/documentation/DELETE-comment.md)
+
+
+//Put in link to discussions post and explain why
+//Describe how to use custom endpoint
+//How to get a token and maybe use it(?)
+//
