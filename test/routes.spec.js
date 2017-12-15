@@ -163,7 +163,7 @@ describe('API Routes', () => {
         });
     });
 
-    it('should be able to add a new discussion', (done) => {
+    it('should not be able to add a new discussion if a property is missing', (done) => {
       chai.request(server)
         .post('/api/v1/discussions/')
         .set('Authorization', token)
@@ -230,10 +230,23 @@ describe('API Routes', () => {
             });
         });
     });
+
+    it('should throw a 422 if a discussion body is not provided', (done) => {
+      chai.request(server)
+        .patch('/api/v1/discussions/1')
+        .set('Authorization', token)
+        .send()
+        .end((error, response) => {
+          response.should.have.status(422);
+          done();
+        });
+    });
+
+
   });
 
   describe('DELETE /api/v1/discussions/:id', () => {
-    it('should delete a specific discussion', (done) => {
+    it('should delete a specific discussion with authorization', (done) => {
       chai.request(server)
         .delete('/api/v1/discussions/1')
         .set('Authorization', token)
@@ -250,6 +263,16 @@ describe('API Routes', () => {
             });
         });
     });
+
+    it('should not delete a specific discussion, and throw a 403, without authorization', (done) => {
+      chai.request(server)
+        .delete('/api/v1/discussions/1')
+        .end( (error, response) => {
+          response.should.have.status(403);
+          done();
+        });
+    });
+
   });
 
   describe('PATCH /api/v1/comments/:id', () => {
@@ -274,6 +297,19 @@ describe('API Routes', () => {
             });
         });
     });
+
+    it('should throw a 422 if a comment body is not provided', (done) => {
+      chai.request(server)
+        .patch('/api/v1/comments/1')
+        .set('Authorization', token)
+        .send()
+        .end((error, response) => {
+          response.should.have.status(422);
+          done();
+        });
+    });
+
+
   });
 
   describe('DELETE /api/v1/comments/:id', () => {
@@ -301,6 +337,7 @@ describe('API Routes', () => {
           done();
         });
     });
+
   });
 
   describe('GET /api/v1/discussions/:id/comments', () => {
