@@ -238,8 +238,7 @@ describe('API Routes', () => {
             .get('/api/v1/discussions/1')
             .end((error, response) => {
               response.body.should.be.a('array');
-              response.body[0].should.have.property('body');
-              response.body[0].body.should.equal(updateDiscussion.body);
+              response.body.includes({ 'body': updateDiscussion.body });
               done();
             });
         });
@@ -314,8 +313,7 @@ describe('API Routes', () => {
             .get('/api/v1/discussions/1/comments/')
             .end((error, response) => {
               response.body.should.be.a('array');
-              response.body[1].should.have.property('body');
-              response.body[1].body.should.equal(updateComments.body);
+              response.body.includes({ 'body': updateComments.body });
               done();
             });
         });
