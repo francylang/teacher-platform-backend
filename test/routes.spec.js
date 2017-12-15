@@ -47,9 +47,8 @@ describe('API Routes', () => {
     chai.request(server)
       .post('/api/v1/authenticate')
       .send({ email: 'amy@turing.io', appName: 'Teacher Forum' })
-      .end((error, response) => token = JSON.parse(response))
+      .end((error, response) => token = response.body.token)
   });
-  console.log({token});
 
   beforeEach((done) => {
     database.seed.run()
@@ -132,9 +131,10 @@ describe('API Routes', () => {
   });
 
   describe('POST /api/v1/discussions/', () => {
-    it.only('should be able to add a new discussion', (done) => {
+    it('should be able to add a new discussion', (done) => {
       chai.request(server)
         .post('/api/v1/discussions/')
+        .set('Authorization', token)
         .send({
           id: 2,
           title: 'Kids these days...',
@@ -185,28 +185,30 @@ describe('API Routes', () => {
       body: 'What were their 5th grade teachers thinking?',
     };
 
-    // it('should be able to update the body of a discussion', (done) => {
-    //   chai.request(server)
-    //     .patch('/api/v1/discussions/1')
-    //     .send(updateDiscussion)
-    //     .end((error, response) => {
-    //       response.should.have.status(204);
-    //       chai.request(server)
-    //         .get('/api/v1/discussions/1')
-    //         .end((error, response) => {
-    //           response.body.should.be.a('array');
-    //           response.body[0].should.have.property('body');
-    //           response.body[0].body.should.equal(updateDiscussion.body);
-    //           done();
-    //         });
-    //     });
-    // });
+    it('should be able to update the body of a discussion', (done) => {
+      chai.request(server)
+        .patch('/api/v1/discussions/1')
+        .set('Authorization', token)
+        .send(updateDiscussion)
+        .end((error, response) => {
+          response.should.have.status(204);
+          chai.request(server)
+            .get('/api/v1/discussions/1')
+            .end((error, response) => {
+              response.body.should.be.a('array');
+              response.body[0].should.have.property('body');
+              response.body[0].body.should.equal(updateDiscussion.body);
+              done();
+            });
+        });
+    });
   });
 
   describe('DELETE /api/v1/discussions/:id', () => {
     it('should delete a specific discussion', (done) => {
       chai.request(server)
         .delete('/api/v1/discussions/1')
+        .set('Authorization', token)
         .end( (error, response) => {
           response.should.have.status(204);
           response.body.should.be.a('object');
@@ -230,6 +232,7 @@ describe('API Routes', () => {
     it('should be able to update the body of a comment', (done) => {
       chai.request(server)
         .patch('/api/v1/comments/1')
+        .set('Authorization', token)
         .send(updateComments)
         .end((error, response) => {
           response.should.have.status(204);
@@ -246,9 +249,10 @@ describe('API Routes', () => {
   });
 
   describe('DELETE /api/v1/comments/:id', () => {
-    it('should delete a specific comment', (done) => {
+    it('should delete a specific comment if user has authorization', (done) => {
       chai.request(server)
         .delete('/api/v1/comments/1')
+        .set('Authorization', token)
         .end( (error, response) => {
           response.should.have.status(204);
           response.body.should.be.a('object');
@@ -258,6 +262,15 @@ describe('API Routes', () => {
               response.should.have.status(404);
               done();
             });
+        });
+    });
+
+    it.only('should not delete a specific comment if user does not have authorization', (done) => {
+      chai.request(server)
+        .delete('/api/v1/comments/1')
+        .end( (error, response) => {
+          response.should.have.status(403);
+          done();
         });
     });
   });
@@ -271,12 +284,9 @@ describe('API Routes', () => {
           response.should.be.json;
           response.body.should.be.a('array');
           response.body.length.should.equal(2);
-          response.body[0].should.have.property('id');
-          response.body[0].id.should.equal(1);
-          response.body[0].should.have.property('body');
-          response.body[0].body.should.equal('Yes but it\'s important');
-          response.body[0].should.have.property('discussionId');
-          response.body[0].discussionId.should.equal(1);
+          response.body.includes({ id: 1 });
+          response.body.includes({body: 'Yes but it\'s important' });
+          response.body.includes({ discussionId: 1 });
           done();
       })
     });
@@ -286,6 +296,7 @@ describe('API Routes', () => {
     it('should be able to add a comments for a discussion', (done) => {
       chai.request(server)
         .post('/api/v1/discussions/1/comments')
+        .set('Authorization', token)
         .send({
           id: 3,
           body: 'Kids forget things sometimes',
@@ -310,6 +321,7 @@ describe('API Routes', () => {
     it('should be able to add a discussion to a sepcific topc ', (done) => {
       chai.request(server)
         .post('/api/v1/topicTags/1/discussions')
+        .set('Authorization', token)
         .send({
           id: 3,
           title: 'What is the air speed velocity of an unladen swallow?',

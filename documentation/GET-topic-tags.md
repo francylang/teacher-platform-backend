@@ -7,6 +7,8 @@
 #### Return:
 -  A successful 200 response will be served.
 
+
+Example: 
 ```javascript
 [
     {
