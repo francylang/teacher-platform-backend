@@ -25,6 +25,8 @@ const getToken = (event) => {
 const displayMessage = (message, type) => {
   if (type === 'token') {
     $('#userToken').text(message);
+    $('#token-title').removeClass('hidden');
+    $('#submit').attr('disabled', 'disabled');
   }
   if (type === 'error') {
     $('#error').text(message);
