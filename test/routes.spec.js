@@ -67,18 +67,11 @@ describe('API Routes', () => {
           response.should.be.json;
           response.body.should.be.a('array');
           response.body.length.should.equal(1);
-          response.body[0].should.have.property('id');
-          response.body[0].id.should.equal(1);
-          response.body[0].should.have.property('tagTitle');
-          response.body[0].tagTitle.should.equal('6.RP.A.1');
-          // response.body[1].should.have.property('id');
-          // response.body[1].id.should.equal(2);
-          // response.body[1].should.have.property('tagTitle');
-          // response.body[1].tagTitle.should.equal('6.RP.A.2');
+          response.body.includes({ 'id': 1 });
+          response.body.includes({ 'tagTitle': '6.RP.A.1'});
           done();
         });
     });
-
 
     it('should return a 404 if path does not exist', (done) => {
       chai.request(server)
@@ -88,6 +81,7 @@ describe('API Routes', () => {
           done();
         });
     });
+
   });
 
   describe('GET /api/v1/topicTags/:id', () => {
@@ -99,13 +93,21 @@ describe('API Routes', () => {
           response.should.be.json;
           response.body.should.be.a('array');
           response.body.length.should.equal(1);
-          response.body[0].should.have.property('id');
-          response.body[0].id.should.equal(1);
-          response.body[0].should.have.property('tagTitle');
-          response.body[0].tagTitle.should.equal('6.RP.A.1');
+          response.body.includes({ 'id': 1});
+          response.body.includes({ 'tagTitle': '6.RP.A.1'});
           done();
       })
     });
+
+    it('should return a 404 if path does not exist', (done) => {
+      chai.request(server)
+        .get('/api/v1/sadness')
+        .end((error, response) => {
+          response.should.have.status(404);
+          done();
+        });
+    });
+
   });
 
   describe('GET /api/v1/discussions/', () => {
@@ -117,17 +119,23 @@ describe('API Routes', () => {
           response.should.be.json;
           response.body.should.be.a('array');
           response.body.length.should.equal(1);
-          response.body[0].should.have.property('id');
-          response.body[0].id.should.equal(1);
-          response.body[0].should.have.property('tagId');
-          response.body[0].tagId.should.equal(1);
-          response.body[0].should.have.property('title');
-          response.body[0].title.should.equal('Unit Rate');
-          response.body[0].should.have.property('body');
-          response.body[0].body.should.equal('Didn\'t kids get this in Grade 5?');
+          response.body.includes({ 'id': 1 });
+          response.body.includes({ 'tagId': 1});
+          response.body.includes({ 'title': 'Unit Rate'});
+          response.body.includes({'body': 'Didn\'t kids get this in Grade 5?'});
           done();
         });
     });
+
+    it('should return a 404 if path does not exist', (done) => {
+      chai.request(server)
+        .get('/api/v1/sadness')
+        .end((error, response) => {
+          response.should.have.status(404);
+          done();
+        });
+    });
+
   });
 
   describe('POST /api/v1/discussions/', () => {
@@ -155,7 +163,35 @@ describe('API Routes', () => {
         });
     });
 
-    //we'll need a test with the auth token
+    it('should not be able to add a new discussion if a property is missing', (done) => {
+      chai.request(server)
+        .post('/api/v1/discussions/')
+        .set('Authorization', token)
+        .send({
+          id: 2,
+          title: 'Kids these days...',
+          tagId: 1
+        })
+        .end((error, response) => {
+          response.should.have.status(422);
+          done();
+        });
+    });
+
+    it('should not be able to add a new discussion without authorization', (done) => {
+      chai.request(server)
+        .post('/api/v1/discussions/')
+        .send({
+          id: 2,
+          title: 'Kids these days...',
+          tagId: 1
+        })
+        .end((error, response) => {
+          response.should.have.status(403);
+          done();
+        });
+    });
+
   });
 
   describe('GET /api/v1/discussions/:id', () => {
@@ -167,17 +203,23 @@ describe('API Routes', () => {
           response.should.be.json;
           response.body.should.be.a('array');
           response.body.length.should.equal(1);
-          response.body[0].should.have.property('id');
-          response.body[0].id.should.equal(1);
-          response.body[0].should.have.property('tagId');
-          response.body[0].tagId.should.equal(1);
-          response.body[0].should.have.property('title');
-          response.body[0].title.should.equal('Unit Rate');
-          response.body[0].should.have.property('body');
-          response.body[0].body.should.equal('Didn\'t kids get this in Grade 5?');
+          response.body.includes({'id': 1});
+          response.body.includes({'tagId': 1});
+          response.body.includes({'title': 'Unit Rate'});
+          response.body.includes({'body': 'Didn\'t kids get this in Grade 5?'});
           done();
       })
     });
+
+    it('should return a 404 if path does not exist', (done) => {
+      chai.request(server)
+        .get('/api/v1/sadness')
+        .end((error, response) => {
+          response.should.have.status(404);
+          done();
+        });
+    });
+
   });
 
   describe('PATCH /api/v1/discussions/:id', () => {
@@ -202,10 +244,32 @@ describe('API Routes', () => {
             });
         });
     });
+
+    it('should throw a 422 if a discussion body is not provided', (done) => {
+      chai.request(server)
+        .patch('/api/v1/discussions/1')
+        .set('Authorization', token)
+        .send()
+        .end((error, response) => {
+          response.should.have.status(422);
+          done();
+        });
+    });
+
+    it('should not update the body of a discussion without authorization', (done) => {
+      chai.request(server)
+        .patch('/api/v1/discussions/1')
+        .send()
+        .end((error, response) => {
+          response.should.have.status(403);
+          done();
+        });
+    });
+
   });
 
   describe('DELETE /api/v1/discussions/:id', () => {
-    it('should delete a specific discussion', (done) => {
+    it('should delete a specific discussion with authorization', (done) => {
       chai.request(server)
         .delete('/api/v1/discussions/1')
         .set('Authorization', token)
@@ -222,6 +286,16 @@ describe('API Routes', () => {
             });
         });
     });
+
+    it('should not be able to delete a specific discussion without authorization', (done) => {
+      chai.request(server)
+        .delete('/api/v1/discussions/1')
+        .end( (error, response) => {
+          response.should.have.status(403);
+          done();
+        });
+    });
+
   });
 
   describe('PATCH /api/v1/comments/:id', () => {
@@ -246,6 +320,29 @@ describe('API Routes', () => {
             });
         });
     });
+
+    it('should throw a 422 if a comment body is not provided', (done) => {
+      chai.request(server)
+        .patch('/api/v1/comments/1')
+        .set('Authorization', token)
+        .send()
+        .end((error, response) => {
+          response.should.have.status(422);
+          done();
+        });
+    });
+
+    it('should not be able to update the body of a comment without authorization', (done) => {
+      chai.request(server)
+        .patch('/api/v1/comments/1')
+        .send()
+        .end((error, response) => {
+          response.should.have.status(403);
+          done();
+        });
+
+    });
+
   });
 
   describe('DELETE /api/v1/comments/:id', () => {
@@ -273,6 +370,7 @@ describe('API Routes', () => {
           done();
         });
     });
+
   });
 
   describe('GET /api/v1/discussions/:id/comments', () => {
@@ -290,10 +388,20 @@ describe('API Routes', () => {
           done();
       })
     });
+
+    it('should return a 404 if path does not exist', (done) => {
+      chai.request(server)
+        .get('/api/v1/sadness')
+        .end((error, response) => {
+          response.should.have.status(404);
+          done();
+        });
+    });
+
   });
 
   describe('POST /api/v1/discussions/:id/comments', () => {
-    it('should be able to add a comments for a discussion', (done) => {
+    it('should be able to add a comment for a discussion', (done) => {
       chai.request(server)
         .post('/api/v1/discussions/1/comments')
         .set('Authorization', token)
@@ -304,8 +412,7 @@ describe('API Routes', () => {
         })
         .end((error, response) => {
           response.should.have.status(201);
-          response.body[0].should.have.property('id');
-          response.body[0].id.should.equal(3);
+          response.body.includes({ 'id': 3 });
           chai.request(server)
             .get('/api/v1/discussions/1/comments')
             .end((error, response) => {
@@ -315,6 +422,34 @@ describe('API Routes', () => {
             });
         });
     });
+
+    it('should throw a 422 if a comment body is not provided', (done) => {
+      chai.request(server)
+        .post('/api/v1/discussions/1/comments')
+        .set('Authorization', token)
+        .send({
+          id: 3,
+          discussionId: 1
+        })
+        .end((error, response) => {
+          response.should.have.status(422);
+          done();
+        });
+    });
+
+    it('should not be able to add a comment without authorization', (done) => {
+      chai.request(server)
+        .post('/api/v1/discussions/1/comments')
+        .send({
+          id: 3,
+          discussionId: 1
+        })
+        .end((error, response) => {
+          response.should.have.status(403);
+          done();
+        });
+    });
+
   });
 
   describe('POST /api/v1/topicTags/:id/discussions', () => {
@@ -330,18 +465,48 @@ describe('API Routes', () => {
         })
         .end((error, response) => {
           response.should.have.status(201);
-          response.body[0].should.have.property('id');
-          response.body[0].id.should.equal(3);
+          response.body.includes({ 'id': 3 });
           chai.request(server)
             .get('/api/v1/discussions/3/')
             .end((error, response) => {
               response.body.should.be.a('array');
               response.body.length.should.equal(1);
-              response.body[0].should.have.property('id');
-              response.body[0].id.should.equal(3);
+              response.body.includes({ 'id': 3 });
               done();
             });
         });
     });
+
+    it('should throw a 422 if a discussion title is not provided', (done) => {
+      chai.request(server)
+        .post('/api/v1/topicTags/1/discussions')
+        .set('Authorization', token)
+        .send({
+          id: 3,
+          body: 'Either African or European is fine.',
+          tagId: 1
+        })
+        .end((error, response) => {
+          response.should.have.status(422);
+          done();
+        });
+    });
+
+    it('should not be able to add a discussion without authorization', (done) => {
+      chai.request(server)
+        .post('/api/v1/topicTags/1/discussions')
+        .set('Authorization', token)
+        .send({
+          id: 3,
+          body: 'Either African or European is fine.',
+          tagId: 1
+        })
+        .end((error, response) => {
+          response.should.have.status(422);
+          done();
+        });
+    });
+
   });
+
 });
