@@ -174,7 +174,21 @@ describe('API Routes', () => {
         })
         .end((error, response) => {
           response.should.have.status(422);
-           done();
+          done();
+        });
+    });
+
+    it('should not be able to add a new discussion without authorization', (done) => {
+      chai.request(server)
+        .post('/api/v1/discussions/')
+        .send({
+          id: 2,
+          title: 'Kids these days...',
+          tagId: 1
+        })
+        .end((error, response) => {
+          response.should.have.status(403);
+          done();
         });
     });
 
@@ -242,6 +256,15 @@ describe('API Routes', () => {
         });
     });
 
+    it('should not update the body of a discussion without authorization', (done) => {
+      chai.request(server)
+        .patch('/api/v1/discussions/1')
+        .send()
+        .end((error, response) => {
+          response.should.have.status(403);
+          done();
+        });
+    });
 
   });
 
@@ -264,7 +287,7 @@ describe('API Routes', () => {
         });
     });
 
-    it('should not delete a specific discussion, and throw a 403, without authorization', (done) => {
+    it('should not be able to delete a specific discussion without authorization', (done) => {
       chai.request(server)
         .delete('/api/v1/discussions/1')
         .end( (error, response) => {
@@ -309,6 +332,16 @@ describe('API Routes', () => {
         });
     });
 
+    it('should not be able to update the body of a comment without authorization', (done) => {
+      chai.request(server)
+        .patch('/api/v1/comments/1')
+        .send()
+        .end((error, response) => {
+          response.should.have.status(403);
+          done();
+        });
+
+    });
 
   });
 
@@ -368,7 +401,7 @@ describe('API Routes', () => {
   });
 
   describe('POST /api/v1/discussions/:id/comments', () => {
-    it('should be able to add a comments for a discussion', (done) => {
+    it('should be able to add a comment for a discussion', (done) => {
       chai.request(server)
         .post('/api/v1/discussions/1/comments')
         .set('Authorization', token)
@@ -404,6 +437,19 @@ describe('API Routes', () => {
         });
     });
 
+    it('should not be able to add a comment without authorization', (done) => {
+      chai.request(server)
+        .post('/api/v1/discussions/1/comments')
+        .send({
+          id: 3,
+          discussionId: 1
+        })
+        .end((error, response) => {
+          response.should.have.status(403);
+          done();
+        });
+    });
+
   });
 
   describe('POST /api/v1/topicTags/:id/discussions', () => {
@@ -432,6 +478,21 @@ describe('API Routes', () => {
     });
 
     it('should throw a 422 if a discussion title is not provided', (done) => {
+      chai.request(server)
+        .post('/api/v1/topicTags/1/discussions')
+        .set('Authorization', token)
+        .send({
+          id: 3,
+          body: 'Either African or European is fine.',
+          tagId: 1
+        })
+        .end((error, response) => {
+          response.should.have.status(422);
+          done();
+        });
+    });
+
+    it('should not be able to add a discussion without authorization', (done) => {
       chai.request(server)
         .post('/api/v1/topicTags/1/discussions')
         .set('Authorization', token)
