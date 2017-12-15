@@ -36,13 +36,20 @@ describe('Client Routes', () => {
 });
 
 describe('API Routes', () => {
+  let token;
+
   before((done) => {
     database.migrate.latest()
       .then(() => done())
       .catch((error) => {
         throw error;
       });
+    chai.request(server)
+      .post('/api/v1/authenticate')
+      .send({ email: 'amy@turing.io', appName: 'Teacher Forum' })
+      .end((error, response) => token = JSON.parse(response))
   });
+  console.log({token});
 
   beforeEach((done) => {
     database.seed.run()
@@ -125,7 +132,7 @@ describe('API Routes', () => {
   });
 
   describe('POST /api/v1/discussions/', () => {
-    it('should be able to add a new discussion', (done) => {
+    it.only('should be able to add a new discussion', (done) => {
       chai.request(server)
         .post('/api/v1/discussions/')
         .send({
