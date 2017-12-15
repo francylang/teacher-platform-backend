@@ -5,6 +5,8 @@ Version 1 of the API is limited to Grade 6 and standard codes, but Grades 7-8 an
 
 The API is a RESTful API. Return format for all endpoints is JSON.
 
+[Live Heroku application](https://teacher-forum-backend.herokuapp.com/)
+
 ***
 
 ## Endpoints
