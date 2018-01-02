@@ -109,6 +109,15 @@ app.get('/api/v1/discussions', (request, response) => {
     .catch(error => response.status(500).json({ error }));
 });
 
+app.get('/api/v1/comments', (request, response) => {
+  database('comments').select()
+    .then((comments) => {
+      return response.status(200).json(comments);
+    })
+    .catch(error => response.status(500).json({ error }));
+});
+
+
 app.post('/api/v1/discussions', checkAuth, (request, response) => {
   const discussion = request.body;
 
