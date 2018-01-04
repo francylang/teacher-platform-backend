@@ -118,10 +118,11 @@ app.get('/api/v1/comments', (request, response) => {
 });
 
 
-app.post('/api/v1/discussions', checkAuth, (request, response) => {
+app.post('/api/v1/discussions', (request, response) => {
   const discussion = request.body;
+// removed 'tagID' property and checkAuth for MVP
 
-  for (const requiredParameter of ['title', 'body', 'tagId']) {
+  for (const requiredParameter of ['title', 'body']) {
     if (!discussion[requiredParameter]) {
       return response.status(422).json({
         error: `You are missing the ${requiredParameter} property.`,
@@ -129,7 +130,7 @@ app.post('/api/v1/discussions', checkAuth, (request, response) => {
     }
   }
 
-  database('discussions').insert(discussion, 'id')
+  return database('discussions').insert(discussion, 'id')
     .then(discussionId => response.status(201).json({ id: discussionId[0] }))
     .catch(error => response.status(500).json({ error }));
 });
