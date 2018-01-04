@@ -228,7 +228,7 @@ app.get('/api/v1/discussions/:id/comments', (request, response) => {
     .catch(error => response.status(500).json({ error }));
 });
 
-app.post('/api/v1/discussions/:id/comments', checkAuth, (request, response) => {
+app.post('/api/v1/discussions/:id/comments', (request, response) => {
   let comment = request.body;
   const { id } = request.params;
 
