@@ -120,10 +120,10 @@ app.get('/api/v1/comments', (request, response) => {
 
 app.post('/api/v1/discussions', (request, response) => {
   const discussion = request.body;
-// removed 'tagID' property and checkAuth for MVP
 
-  for (const requiredParameter of ['title', 'body']) {
+  for (const requiredParameter of ['title', 'body', 'tagTitle']) {
     if (!discussion[requiredParameter]) {
+      console.log('you are missing something');
       return response.status(422).json({
         error: `You are missing the ${requiredParameter} property.`,
       });
