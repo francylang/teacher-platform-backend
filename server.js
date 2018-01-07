@@ -123,7 +123,6 @@ app.post('/api/v1/discussions', (request, response) => {
 
   for (const requiredParameter of ['title', 'body', 'tagTitle']) {
     if (!discussion[requiredParameter]) {
-      console.log('you are missing something');
       return response.status(422).json({
         error: `You are missing the ${requiredParameter} property.`,
       });
