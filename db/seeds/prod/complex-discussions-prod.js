@@ -14,7 +14,7 @@ const createDiscussion = (knex, comments, discussion) => {
       });
       return Promise.all(commentPromises);
     })
-    .catch(error => console.log(`Error in discussion: ${error}`));
+    .catch(error => console.error(`Error in discussion: ${error}`));
 };
 
 const createTopicTag = (knex, topic) => {
@@ -52,6 +52,7 @@ exports.seed = (knex, Promise) => {
     })
     .catch(error => console.error(`Error seeding data: ${error}`));
 };
+
 const discussionsData = [
   {
     id: 1,
@@ -59,7 +60,7 @@ const discussionsData = [
     discussions: [
       {
         id: 1,
-        tagTitle: "6.RP.A.1",
+        "tagTitle": "6.RP.A.1",
         title: "Unit Rate",
         body: "Didn't kids get this in Grade 5? I'm confused about why it's in the standards.",
         comments: [

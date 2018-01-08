@@ -59,10 +59,10 @@ exports.seed = (knex, Promise) => {
 const discussionsData = [
   {
     id: 1,
-    tagTitle: "6.RP.A.1",
     discussions: [
       {
         id: 1,
+        tag_title: "6.RP.A.1",
         title: "Unit Rate",
         body: "Didn't kids get this in Grade 5?",
         comments: [
