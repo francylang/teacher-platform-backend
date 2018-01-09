@@ -41,5 +41,5 @@ _Example use of JWT authentication: api/v1/discussions/?token=UNIQUE_JWT_
 
 #### DELETE
 
-- [DELETE a specific Discussion](https://github.com/lfinney/build-your-own-backend/blob/master/documentation/DELETE-discussion.md)
-- [DELETE a specific Comment](https://github.com/lfinney/build-your-own-backend/blob/master/documentation/DELETE-comment.md)
+- [DELETE specific Discussion](https://github.com/lfinney/build-your-own-backend/blob/master/documentation/DELETE-discussion.md)
+- [DELETE specific Comment](https://github.com/lfinney/build-your-own-backend/blob/master/documentation/DELETE-comment.md)
