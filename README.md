@@ -35,8 +35,8 @@ _Example use of JWT authentication: api/v1/discussions/?token=UNIQUE_JWT_
 
 #### POST
 - [POST Authenticate](https://github.com/lfinney/build-your-own-backend/blob/master/documentation/POST-authenticate.md)
-- [POST to Discussions](https://github.com/lfinney/build-your-own-backend/blob/master/documentation/POST-discussion.md)
-- [POST to Discussions by Topic Tag](https://github.com/lfinney/build-your-own-backend/blob/master/documentation/POST-discussion-by-topicTag.md)
+- [POST Discussions](https://github.com/lfinney/build-your-own-backend/blob/master/documentation/POST-discussion.md)
+- [POST Discussions by Topic Tag](https://github.com/lfinney/build-your-own-backend/blob/master/documentation/POST-discussion-by-topicTag.md)
 - [POST to Comments](https://github.com/lfinney/build-your-own-backend/blob/master/documentation/POST-comment.md)
 
 #### DELETE
