@@ -119,10 +119,10 @@ const discussionsData = [
   },
   {
     id: 4,
-    tagTitle: "6.RP.A.3.A",
+    tagTitle: "6.EE.A.1",
     discussions: [
       {
-        tagTitle: "6.RP.A.3.A",
+        tagTitle: "6.EE.A.1",
         title: "Percent",
         body: "I'm looking for great percent (with part, whole vocab) anchor charts - any pictures?",
         comments: [
@@ -135,7 +135,7 @@ const discussionsData = [
         ],
       },
       {
-        tagTitle: "6.RP.A.3.A",
+        tagTitle: "6.EE.A.1",
         title: "Measurement",
         body: "Specifically what units do we care about converting? Should students have ratios memorized, or can we assume they just need to understand how the two units compare and perform the conversion?",
         comments: [
@@ -148,10 +148,10 @@ const discussionsData = [
   },
   {
     id: 5,
-    tagTitle: "6.RP.A.3.B",
+    tagTitle: "6.RP.A.3",
     discussions: [
       {
-        tagTitle: "6.RP.A.3.B",
+        tagTitle: "6.RP.A.3",
         title: "Dividing Fractions",
         body: "Specifically what units do we care about converting? Should students have ratios memorized, or can we assume they just need to understand how the two units compare and perform the conversion?",
         comments: [
@@ -167,10 +167,10 @@ const discussionsData = [
   },
   {
     id: 6,
-    tagTitle: "6.RP.A.3.C",
+    tagTitle: "6.RP.A.3",
     discussions: [
       {
-        tagTitle: "6.RP.A.3.C",
+        tagTitle: "6.RP.A.3",
         title: "GCF LCM Visuals",
         body: "Any great visuals for GCF and LCM?",
         comments: [
@@ -186,10 +186,10 @@ const discussionsData = [
   },
   {
     id: 7,
-    tagTitle: "6.NS.A.1",
+    tagTitle: "6.SP.A.1",
     discussions: [
       {
-        tagTitle: "6.NS.A.1",
+        tagTitle: "6.SP.A.1",
         title: "Absolute Value",
         body: "What hands-on activities do you recommend for teaching this?",
         comments: [
@@ -314,10 +314,10 @@ const discussionsData = [
   },
   {
     id: 14,
-    tagTitle: "6.NS.C.6.A",
+    tagTitle: "6.G.A.1",
     discussions: [
       {
-        tagTitle: "6.NS.C.6.A",
+        tagTitle: "6.G.A.1",
         title: "Dependent/Independent",
         body: "How can we collaborate with the science team to reinforce dependent/independent variables?",
         comments: [
@@ -330,10 +330,10 @@ const discussionsData = [
   },
   {
     id: 15,
-    tagTitle: "6.NS.C.6.B",
+    tagTitle: "6.NS.C.6",
     discussions: [
       {
-        tagTitle: "6.NS.C.6.B",
+        tagTitle: "6.NS.C.6",
         title: "Variables",
         body: "How do you represent variables with algeblocks?",
         comments: [
@@ -378,10 +378,10 @@ const discussionsData = [
   },
   {
     id: 18,
-    tagTitle: "6.NS.C.7.A",
+    tagTitle: "6.NS.C.7",
     discussions: [
       {
-        tagTitle: "6.NS.C.7.A",
+        tagTitle: "6.NS.C.7",
         title: "Data - overall shape",
         body: "How far should we go into 'overall shape'?",
         comments: [
@@ -397,10 +397,10 @@ const discussionsData = [
   },
   {
     id: 19,
-    tagTitle: "6.NS.C.7.B",
+    tagTitle: "6.EE.C.9",
     discussions: [
       {
-        tagTitle: "6.NS.C.7.B",
+        tagTitle: "6.EE.C.9",
         title: "Central Tend - Graphic Organizers",
         body: "Any good graphic organizers for all the measures of central tendency?",
         comments: [
@@ -413,10 +413,10 @@ const discussionsData = [
   },
   {
     id: 20,
-    tagTitle: "6.NS.C.7.B",
+    tagTitle: "6.NS.C.7",
     discussions: [
       {
-        tagTitle: "6.NS.C.7.B",
+        tagTitle: "6.NS.C.7",
         title: "Which data display to prioritize?",
         body: "I only have time to cover two: dot, histogram, or box plots? What's more importnat for 7th-8th?",
         comments: [
@@ -429,15 +429,15 @@ const discussionsData = [
   },
   {
     id: 21,
-    tagTitle: "6.NS.C.7.C",
+    tagTitle: "8.SP.A.1",
     discussions: [
       {
-        tagTitle: "6.NS.C.7.C",
-        title: "Anchor charts",
-        body: "Who has great anchor charts I can borrow ideas from? I'm not creative!",
+        tagTitle: "8.SP.A.1",
+        title: "Nonlinear Association",
+        body: "I'm reading Q17 on the test and don't understand the wording - is it a poorly worded question or is there something I'm missing?",
         comments: [
           {
-            body: "Here are some pics!",
+            body: "I agree, the question should be re-worded.",
           },
         ],
       },
@@ -445,15 +445,15 @@ const discussionsData = [
   },
   {
     id: 22,
-    tagTitle: "6.NS.C.7.D",
+    tagTitle: "8.G.A.1",
     discussions: [
       {
-        tagTitle: "6.NS.C.7.D",
-        title: "Curriculum order",
-        body: "Does it make sense to teach RP standars before NS?",
+        tagTitle: "8.G.A.1",
+        title: "Rotations",
+        body: "Some kids just don't see this, and it comes to easy to me so I'm finding myself stuck when trying to explain how to 'see' how something would rotate. Any ideas?",
         comments: [
           {
-            body: "Big topic of discussion in the math community - here are some articles to read up on. Each campus can do whichever they believe is best.",
+            body: "Visuals and kinesthetics! There are tons of videos out there that illustrate, and you can use paper cut-outs so kids can move the shapes around on their graph paper. ",
           },
         ],
       },
@@ -461,15 +461,15 @@ const discussionsData = [
   },
   {
     id: 23,
-    tagTitle: "6.NS.C.8",
+    tagTitle: "8.EE.A.1",
     discussions: [
       {
-        tagTitle: "6.NS.C.8",
-        title: "Fluency",
-        body: "Does anyone have any great fluency activities?",
+        tagTitle: "8.EE.A.1",
+        title: "Exponent Rules",
+        body: "I am having a difficult time understanding the concept behind this, therefore how to support students' understanding rather than just teaching a way to memorize this 'fact'.",
         comments: [
           {
-            body: "Here you go",
+            body: "This video was really helpful when I was in the same place: https://www.youtube.com/watch?v=zE-ySqkT-9E",
           },
         ],
       },
@@ -477,27 +477,27 @@ const discussionsData = [
   },
   {
     id: 24,
-    tagTitle: "6.NS.EE.A.1",
+    tagTitle: "8.F.A.1",
     discussions: [
       {
-        tagTitle: "6.NS.EE.A.1",
-        title: "Fluency",
-        body: "Does anyone have any great fluency activities?",
+        tagTitle: "8.F.A.1",
+        title: "Graphing Functions",
+        body: "The word 'understand' in this standard is so hard for me to be clear on the depth at which students need to understand that a function is a rule and how it would be graphed.",
         comments: [],
       },
     ],
   },
   {
     id: 25,
-    tagTitle: "6.EE.A.2",
+    tagTitle: "8.NS.A.1",
     discussions: [
       {
-        tagTitle: "6.EE.A.2",
-        title: "Packet format?",
-        body: "How do you format your packets? Looking for something I can use daily - consistent and quick.",
+        tagTitle: "8.NS.A.1",
+        title: "Pi Day",
+        body: "I am planning a PI day activity.I found the resources in curriculum guide, but most are not very hands-on. Looking for any other ways to have fun with circles!",
         comments: [
           {
-            body: "Here you go",
+            body: "You can challenge kids to see who can memorize the greatest number of digits of Pi!",
           },
         ],
       },
@@ -505,15 +505,18 @@ const discussionsData = [
   },
   {
     id: 26,
-    tagTitle: "6.EE.A.2.A",
+    tagTitle: "7.RP.A.1",
     discussions: [
       {
-        tagTitle: "6.EE.A.2.A",
-        title: "Packet content",
-        body: "What all do you print in your packet? If I print too much, the kids work ahead. Ideas?",
+        tagTitle: "7.RP.A.1",
+        title: "Fractional Unit Rates",
+        body: "I'm looking at the unit guide and example problems and am wondering - how 'real-life' is it to solve these problems? The complexity of fractions is taking away from my students mastering the concept of proportionality.",
         comments: [
           {
-            body: "Here you go",
+            body: "This is a great, and tricky question. It's not too 'real-life', but it's important that students can handle the cognitive burden of these multi-step problems. .",
+          },
+          {
+            body: "I recommend a graphic organizer - model how to use it and have them use it regularly to help them organize their work and see that they CAN do it, just need to keep organized so they can keep track of what step in the process they are on.",
           },
         ],
       },
@@ -521,15 +524,18 @@ const discussionsData = [
   },
   {
     id: 27,
-    tagTitle: "6.EE.A.2.B",
+    tagTitle: "7.NS.A.1",
     discussions: [
       {
-        tagTitle: "6.EE.A.2.B",
-        title: "Grading DN",
-        body: "Do you grade Do Nows?",
+        tagTitle: "7.NS.A.1",
+        title: "Addition and Subtration on a number line",
+        body: "I am struggling to truly understand the 'why' behind 'subtracting a negative is the same as adding'. What is your explanation?",
         comments: [
           {
-            body: "Yes, this helps hold kids accountable to completing it. Attached are some strategies.",
+            body: "LearnZillion has a great video that explains this. I personally think this is best modeled with red and yellow chips.",
+          },
+          {
+            body: "3 - (-5). Put out 3 yellow chips. You need to subtract 5 reds, but you don't have any reds! If you bring on 5 reds to your mat, you also need to bring on 5 yellows to maintain the value of 3. Now you have 8 yellows and 5 reds. Remove the 5 reds.",
           },
         ],
       },
@@ -537,15 +543,15 @@ const discussionsData = [
   },
   {
     id: 28,
-    tagTitle: "6.EE.A.2.C",
+    tagTitle: "6.SP.A.1",
     discussions: [
       {
-        tagTitle: "6.EE.A.2.C",
-        title: "Trade and Grade",
-        body: "Any trade and grade strategies? I would love to see a video of the executiong.",
+        tagTitle: "6.SP.A.1",
+        title: "Generalizing Data",
+        body: "The concept of generalizing data is difficult for MS students - looking for a specific real-world situation that could be used to illustrate how generalizing data has HELPED someone make a decision!",
         comments: [
           {
-            body: "Blahblahlbahlblhablah.",
+            body: "An app developer was deciding if she should make an iPhone or Android app for teenagers. She found that most teenagers use the iPhone, so made the iPhone app.",
           },
         ],
       },
@@ -553,28 +559,32 @@ const discussionsData = [
   },
   {
     id: 29,
-    tagTitle: "6.EE.A.3",
+    tagTitle: "7.EE.A.1",
     discussions: [
       {
-        tagTitle: "6.EE.A.3",
-        title: "Precise Language",
-        body: "How are teachers getting students to use precise mathematical vocab?",
+        tagTitle: "7.EE.A.1",
+        title: "EE Vocabulary Development Skills",
+        body: "I need help finding a way to TEACH study skills; even if class time is given to work on quizlet, some students don't utilize that time well and I don't know how to best support them.",
         comments: [
           {
-            body: "Blahblahlbahlblhablah.",
+            body: "I would recommend doing a think-aloud to model how to use quizlet. Depending on your vision for their study routine, maybe even make a checklist.",
+          },
+          {
+            body: "I also think that pre- and post- reflections can be great to help students get 'meta' about these types of skill.",
           },
         ],
       },
     ],
   },
+
   {
     id: 30,
-    tagTitle: "6.EE.A.4",
+    tagTitle: "7.G.A.1",
     discussions: [
       {
-        tagTitle: "6.EE.A.4",
-        title: "Partners",
-        body: "How do you pair kids up? I'm noticing that students farther along are steamrolling kids who need to be supported by that peer.",
+        tagTitle: "7.G.A.1",
+        title: "Scale Drawings",
+        body: "I'd love to design a project around scale drawings.I am working to build a rubric; would love any resources you have or input on strgon opinions before I start crafting it. Thanks!",
         comments: [],
       },
     ],

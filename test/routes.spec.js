@@ -44,10 +44,10 @@ describe('API Routes', () => {
       .catch((error) => {
         throw error;
       });
-    chai.request(server)
-      .post('/api/v1/authenticate')
-      .send({ email: 'amy@turing.io', appName: 'Teacher Forum' })
-      .end((error, response) => token = response.body.token)
+    // chai.request(server)
+    //   .post('/api/v1/authenticate')
+    //   .send({ email: 'amy@turing.io', appName: 'Teacher Forum' })
+    //   .end((error, response) => token = response.body.token)
   });
 
   beforeEach((done) => {
@@ -142,12 +142,12 @@ describe('API Routes', () => {
     it('should be able to add a new discussion', (done) => {
       chai.request(server)
         .post('/api/v1/discussions/')
-        .set('Authorization', token)
         .send({
           id: 2,
           title: 'Kids these days...',
           body: 'Really like learning about Math!',
-          tagId: 1
+          tagTitle: '6.RP.A.1',
+          tagId: 1,
         })
         .end((error, response) => {
           response.should.have.status(201);
@@ -166,28 +166,14 @@ describe('API Routes', () => {
     it('should not be able to add a new discussion if a property is missing', (done) => {
       chai.request(server)
         .post('/api/v1/discussions/')
-        .set('Authorization', token)
         .send({
           id: 2,
           title: 'Kids these days...',
-          tagId: 1
+          tagId: 1,
+          tagTitle: '6.RP.A.1',
         })
         .end((error, response) => {
           response.should.have.status(422);
-          done();
-        });
-    });
-
-    it('should not be able to add a new discussion without authorization', (done) => {
-      chai.request(server)
-        .post('/api/v1/discussions/')
-        .send({
-          id: 2,
-          title: 'Kids these days...',
-          tagId: 1
-        })
-        .end((error, response) => {
-          response.should.have.status(403);
           done();
         });
     });
@@ -230,7 +216,6 @@ describe('API Routes', () => {
     it('should be able to update the body of a discussion', (done) => {
       chai.request(server)
         .patch('/api/v1/discussions/1')
-        .set('Authorization', token)
         .send(updateDiscussion)
         .end((error, response) => {
           response.should.have.status(204);
@@ -247,20 +232,9 @@ describe('API Routes', () => {
     it('should throw a 422 if a discussion body is not provided', (done) => {
       chai.request(server)
         .patch('/api/v1/discussions/1')
-        .set('Authorization', token)
         .send()
         .end((error, response) => {
           response.should.have.status(422);
-          done();
-        });
-    });
-
-    it('should not update the body of a discussion without authorization', (done) => {
-      chai.request(server)
-        .patch('/api/v1/discussions/1')
-        .send()
-        .end((error, response) => {
-          response.should.have.status(403);
           done();
         });
     });
@@ -271,7 +245,6 @@ describe('API Routes', () => {
     it('should delete a specific discussion with authorization', (done) => {
       chai.request(server)
         .delete('/api/v1/discussions/1')
-        .set('Authorization', token)
         .end( (error, response) => {
           response.should.have.status(204);
           response.body.should.be.a('object');
@@ -286,15 +259,6 @@ describe('API Routes', () => {
         });
     });
 
-    it('should not be able to delete a specific discussion without authorization', (done) => {
-      chai.request(server)
-        .delete('/api/v1/discussions/1')
-        .end( (error, response) => {
-          response.should.have.status(403);
-          done();
-        });
-    });
-
   });
 
   describe('PATCH /api/v1/comments/:id', () => {
@@ -305,7 +269,6 @@ describe('API Routes', () => {
     it('should be able to update the body of a comment', (done) => {
       chai.request(server)
         .patch('/api/v1/comments/1')
-        .set('Authorization', token)
         .send(updateComments)
         .end((error, response) => {
           response.should.have.status(204);
@@ -322,23 +285,11 @@ describe('API Routes', () => {
     it('should throw a 422 if a comment body is not provided', (done) => {
       chai.request(server)
         .patch('/api/v1/comments/1')
-        .set('Authorization', token)
         .send()
         .end((error, response) => {
           response.should.have.status(422);
           done();
         });
-    });
-
-    it('should not be able to update the body of a comment without authorization', (done) => {
-      chai.request(server)
-        .patch('/api/v1/comments/1')
-        .send()
-        .end((error, response) => {
-          response.should.have.status(403);
-          done();
-        });
-
     });
 
   });
@@ -347,7 +298,6 @@ describe('API Routes', () => {
     it('should delete a specific comment if user has authorization', (done) => {
       chai.request(server)
         .delete('/api/v1/comments/1')
-        .set('Authorization', token)
         .end( (error, response) => {
           response.should.have.status(204);
           response.body.should.be.a('object');
@@ -357,15 +307,6 @@ describe('API Routes', () => {
               response.should.have.status(404);
               done();
             });
-        });
-    });
-
-    it('should not delete a specific comment if user does not have authorization', (done) => {
-      chai.request(server)
-        .delete('/api/v1/comments/1')
-        .end( (error, response) => {
-          response.should.have.status(403);
-          done();
         });
     });
 
@@ -402,7 +343,6 @@ describe('API Routes', () => {
     it('should be able to add a comment for a discussion', (done) => {
       chai.request(server)
         .post('/api/v1/discussions/1/comments')
-        .set('Authorization', token)
         .send({
           id: 3,
           body: 'Kids forget things sometimes',
@@ -424,7 +364,6 @@ describe('API Routes', () => {
     it('should throw a 422 if a comment body is not provided', (done) => {
       chai.request(server)
         .post('/api/v1/discussions/1/comments')
-        .set('Authorization', token)
         .send({
           id: 3,
           discussionId: 1
@@ -435,26 +374,12 @@ describe('API Routes', () => {
         });
     });
 
-    it('should not be able to add a comment without authorization', (done) => {
-      chai.request(server)
-        .post('/api/v1/discussions/1/comments')
-        .send({
-          id: 3,
-          discussionId: 1
-        })
-        .end((error, response) => {
-          response.should.have.status(403);
-          done();
-        });
-    });
-
   });
 
   describe('POST /api/v1/topicTags/:id/discussions', () => {
     it('should be able to add a discussion to a sepcific topc ', (done) => {
       chai.request(server)
         .post('/api/v1/topicTags/1/discussions')
-        .set('Authorization', token)
         .send({
           id: 3,
           title: 'What is the air speed velocity of an unladen swallow?',
@@ -478,22 +403,6 @@ describe('API Routes', () => {
     it('should throw a 422 if a discussion title is not provided', (done) => {
       chai.request(server)
         .post('/api/v1/topicTags/1/discussions')
-        .set('Authorization', token)
-        .send({
-          id: 3,
-          body: 'Either African or European is fine.',
-          tagId: 1
-        })
-        .end((error, response) => {
-          response.should.have.status(422);
-          done();
-        });
-    });
-
-    it('should not be able to add a discussion without authorization', (done) => {
-      chai.request(server)
-        .post('/api/v1/topicTags/1/discussions')
-        .set('Authorization', token)
         .send({
           id: 3,
           body: 'Either African or European is fine.',
