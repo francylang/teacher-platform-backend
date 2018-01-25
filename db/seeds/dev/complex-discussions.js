@@ -127,7 +127,7 @@ const discussionsData = [
       {
         tagTitle: "6.EE.A.1",
         title: "Percent",
-        body: "I'm looking for great percent (with part, whole vocab) anchor charts - any pictures?",
+        body: "I'm looking for great percent (with part, whole vocab) anchor charts - any great resources?",
         comments: [
           {
             body: "Here you go!",
@@ -144,6 +144,9 @@ const discussionsData = [
         comments: [
           {
             body: "We are having a PD on this next week - will post resources after",
+          },
+          {
+            body: "In general, I try to avoid having students memorize, the conceptual understanding of the comparison is an important foundation they should grasp. ",
           },
         ],
       },
@@ -194,7 +197,7 @@ const discussionsData = [
       {
         tagTitle: "6.SP.A.1",
         title: "Absolute Value",
-        body: "What hands-on activities do you recommend for teaching this?",
+        body: "What hands-on activities do you recommend for teaching absolute value?",
         comments: [
           {
             body: "I make a life size number line in the hallway",
@@ -209,11 +212,11 @@ const discussionsData = [
     discussions: [
       {
         tagTitle: "6.NS.B.2",
-        title: "Tasks",
+        title: "Real-word application",
         body: "Any great real-world tasks involving coordinate plane?",
         comments: [
           {
-            body: "Here you go!",
+            body: "Lots! If you have tile anywhere in the building you could have students work with those. Also, you could have them play a form of battle ship or map routes to their houses and other places they like to go.",
           },
         ],
       },
@@ -239,7 +242,7 @@ const discussionsData = [
         body: "What kind of think-alouds or exploratory tasks, etc. can be done to help students see that 'subtract y from 5' = 5 - y and not y - 5? Thanks!",
         comments: [
           {
-            body: "Here is an anchor that helps with the language.",
+            body: "An anchor chart to help with the language would be a good first step.",
           },
         ],
       },
@@ -255,7 +258,7 @@ const discussionsData = [
         body: "Does anyone have a fun way of reinforcing vocabulary?",
         comments: [
           {
-            body: "It doesn't need to be fun.",
+            body: "It doesn't need to be fun, but some interactive ways to reinforce would be for students to take ownership over the word wall and be responsible for updating it when new words are introduced.",
           },
         ],
       },
@@ -271,7 +274,7 @@ const discussionsData = [
         body: "How do you teach kids to factor out an expression such as 24x + 18? I can 'drill and kill' a procedure, but I'd love to teach it in a better way.",
         comments: [
           {
-            body: "What do they have in common?",
+            body: "Ask students, what do they have in common?",
           },
         ],
       },
@@ -300,7 +303,7 @@ const discussionsData = [
       {
         tagTitle: "6.NS.C.6",
         title: "Dependent/Independent",
-        body: "How can we collaborate with the science team to reinforce dependent/independent variables?",
+        body: "Does anyone have ideas on how to collaborate with the science team to reinforce dependent/independent variables?",
         comments: [
           {
             body: "Great question - here is their pacing guide",
@@ -310,8 +313,12 @@ const discussionsData = [
       {
         tagTitle: "6.NS.C.6",
         title: "ELL - vocab",
-        body: "This is especially difficult for my students who are ELLs. ANy strategies to help them?",
-        comments: [],
+        body: "This is especially difficult for my students who are ELLs. Any strategies to help them?",
+        comments: [
+          {
+            body: "Try and connect with the language arts teacher at your school and see what they are doing, this can help keep things consistent for ELL students."
+          },
+        ],
       },
     ],
   },
@@ -325,7 +332,7 @@ const discussionsData = [
         body: "How can we collaborate with the science team to reinforce dependent/independent variables?",
         comments: [
           {
-            body: "Great question - here is their pacing guide",
+            body: "Great question - check out the DSST pacing guide",
           },
         ],
       },
@@ -341,7 +348,7 @@ const discussionsData = [
         body: "How do you represent variables with algeblocks?",
         comments: [
           {
-            body: "here's a great resource!",
+            body: "Great question, I would love the to hear what other people have tried!",
           },
         ],
       },
@@ -353,11 +360,11 @@ const discussionsData = [
     discussions: [
       {
         tagTitle: "6.NS.C.6.C",
-        title: "This is completely made up",
-        body: "BAHHHHHH",
+        title: "Number System",
+        body: "I know this is a new domain for students entering 6th grade. Has anyone come up with some good ways to get students started?",
         comments: [
           {
-            body: "Here you go!",
+            body: "Try and ground it in vocab first. Then dig into the heart and potatoes of it.",
           },
         ],
       },
@@ -373,7 +380,7 @@ const discussionsData = [
         body: "I know this isn't a prioritized standard, but would love to do this on a culture day - any fun activities out there?",
         comments: [
           {
-            body: "YES! Here is a super fun activity.",
+            body: "YES! What a great idea.",
           },
         ],
       },
@@ -408,7 +415,7 @@ const discussionsData = [
         body: "Any good graphic organizers for all the measures of central tendency?",
         comments: [
           {
-            body: "See attached.",
+            body: "Yes, I think we all had a PD coming up at GVR, I will bring my examples.",
           },
         ],
       },
@@ -486,7 +493,11 @@ const discussionsData = [
         tagTitle: "8.F.A.1",
         title: "Graphing Functions",
         body: "The word 'understand' in this standard is so hard for me to be clear on the depth at which students need to understand that a function is a rule and how it would be graphed.",
-        comments: [],
+        comments: [
+          {
+            body: "I hate the word 'understand,' whenever I see it, I usually break that standard out into multiple objectives- identify, complete, create, etc",
+          },
+        ],
       },
     ],
   },
