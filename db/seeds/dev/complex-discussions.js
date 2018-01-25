@@ -110,7 +110,7 @@ const discussionsData = [
     discussions: [
       {
         tagTitle: "6.RP.A.3",
-        title: "Coodinate Plane",
+        title: "Coordinate Plane",
         body: "Should students already know how to plot points on a coordinate plane?.",
         comments: [
           {
