@@ -85,17 +85,20 @@ const discussionsData = [
         body: "I'm having a hard time grasping tape diagrams well enough to teach kids how to use them as a tool. Any resources?",
         comments: [
           {
-            body: "Learn Zillion!",
+            body: "I have had the same challenge, but check out Learn Zillion. It has been a great resource for me!",
           },
         ],
       },
       {
         tagTitle: "6.RP.A.2",
         title: "Double number line",
-        body: "I get it, but I'm struggling to find the words to explain this without getting too procedural. Any tips?",
+        body: "I get it, but I'm struggling to find the words to explain this without getting too procedural. Any tips on teaching conceptual understanding of the double number line?",
         comments: [
           {
-            body: "Here is a resource...",
+            body: "Double number line diagrams are useful for visualizing ratio relationships between two quantities. They are best used when the quantities have different units.",
+          },
+          {
+            body: "Double number line diagrams help students more easily “see” that there are many equivalent forms of the same ratio.",
           },
         ],
       },

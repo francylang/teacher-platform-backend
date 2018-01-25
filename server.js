@@ -21,6 +21,7 @@ if (process.env.NODE_ENV === 'production') { app.use(httpsRedirect); }
 app.use(cors());
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
+  // replace start with hostname on front-end
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   next();
 });
@@ -64,14 +65,6 @@ app.get('/api/v1/topicTags/:id', (request, response) => {
     .catch(error => response.status(500).json({ error }));
 });
 
-app.get('/api/v1/discussions', (request, response) => {
-  database('discussions').select()
-    .then((discussions) => {
-      return response.status(200).json(discussions);
-    })
-    .catch(error => response.status(500).json({ error }));
-});
-
 app.get('/api/v1/comments', (request, response) => {
   database('comments').select()
     .then((comments) => {
@@ -80,6 +73,13 @@ app.get('/api/v1/comments', (request, response) => {
     .catch(error => response.status(500).json({ error }));
 });
 
+app.get('/api/v1/discussions', (request, response) => {
+  database('discussions').select()
+    .then((discussions) => {
+      return response.status(200).json(discussions);
+    })
+    .catch(error => response.status(500).json({ error }));
+});
 
 app.post('/api/v1/discussions', (request, response) => {
   const discussion = request.body;
